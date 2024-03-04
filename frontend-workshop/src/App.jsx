@@ -1,7 +1,7 @@
 import './App.css'
-import Resources from './components/Twice'
-import Companies from './components/Companies'
-import Projects from './components/Projects'
+import Resources from './components/Resources/Twice'
+import Companies from './components/Companies/Companies'
+import Projects from './components/Projects/Projects'
 //import { Grid, GridItem } from '@chakra-ui/react'
 
 function App() {

@@ -5,7 +5,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #04041c;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -13,46 +13,71 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+/* DIV CONTAINERS */
+#top, #lowerleft, #lowerright {
+  background-color : rgb(40, 38, 79);
+  border-radius: 10px;
 }
 
-body {
-  margin: 0;
+#lowerSection {
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  margin-top: 2%;
+}
+
+#lowerleft {
+  max-width: 100%;
+  flex: 1;
+}
+
+#lowerright {
+  margin-left: 2%;
+  max-width: 100%;
+  flex: 1;
+}
+
+
+
+/* END OF DIV CONTAINERS */
+
+/* TABLES CSS */ 
+.dataTable {
+  text-align: left;
+  width: 97%;
+  
+}
+
+/* END OF TABLE CSS */
+
+
+#resourceContainer {
+  width: 100%;
+}
+
+#title {
+  text-align: center;
 }
 
 h1 {
-  font-size: 4.2em;
-  line-height: 1.1;
-  color:#f02ebf;
+  color: rgb(248, 133, 17);
+  text-align: left;
+  text-indent: 20px;
+  font-size: 30px;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
+.projectName {
+  text-align: center;
+  color:rgb(255, 255, 255);
+  line-height: 5px;
 }
-button:hover {
-  border-color: #646cff;
+
+.projectDescription {
+  margin-top: 0%;
+  line-height: 1;
+  color: rgb(171, 171, 171);
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+
+#divider {
+  margin-bottom: 10%;
 }
 
 @media (prefers-color-scheme: light) {

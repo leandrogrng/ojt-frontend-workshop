@@ -3,9 +3,9 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
+  color-scheme: light;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #04041c;
+  background-color: #ffffff;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -14,28 +14,37 @@
 }
 
 /* DIV CONTAINERS */
-#top, #lowerleft, #lowerright {
-  background-color : rgb(40, 38, 79);
+
+.root {
+  display: flex;
+  margin-top: 2%;
+  height: 1080px;
   border-radius: 10px;
 }
 
-#lowerSection {
-  display: flex;
-  margin-top: 2%;
-}
-
-#lowerleft {
-  max-width: 100%;
+#sidebar {
+  max-width: 20%;
   flex: 1;
+  height: 100%;
+  border-radius: 10px;
 }
 
-#lowerright {
+#display {
   margin-left: 2%;
   max-width: 100%;
   flex: 1;
+  background-color: rgb(207, 207, 207);
+  border-radius: 10px;
 }
 
+#sidebar {
+  background-color: rgb(217, 123, 22);
+  width: 25%
+}
 
+#main {
+  border-radius: 10px;
+}
 
 /* END OF DIV CONTAINERS */
 
@@ -43,7 +52,16 @@
 .dataTable {
   text-align: left;
   width: 97%;
-  
+}
+
+.menu {
+  font-size: 30px;
+  font-weight: bold;
+  color: white;
+}
+
+.menu:hover {
+  color:rgb(255, 195, 130);
 }
 
 /* END OF TABLE CSS */
@@ -58,22 +76,50 @@
 }
 
 h1 {
-  color: rgb(248, 133, 17);
+  color: rgb(255, 255, 255);
   text-align: left;
-  text-indent: 20px;
-  font-size: 30px;
+  font-size: 35px;
+}
+
+#error {
+  margin-top: 10%;
+  margin-bottom: 0;
+  color: black;
+  font-size: 60px;
+  font-weight: 900;
+  text-align: center;
+}
+
+#errorText {
+  margin-top: 0%;
+  font-size: 20px;
+  text-align: center;
+}
+
+#home {
+  text-align : center;
+  font-size: 50px;
+  font-weight: 900;
+  color:#3c3c3c;
 }
 
 .projectName {
+  margin-top: 30px;
+  font-size: 40px;
+  font-weight: bold;
   text-align: center;
-  color:rgb(255, 255, 255);
-  line-height: 5px;
+  color:rgb(36, 36, 36);
+  line-height: 50px;
+  margin-bottom: 0%;
+  
+
 }
 
 .projectDescription {
-  margin-top: 0%;
-  line-height: 1;
-  color: rgb(171, 171, 171);
+  margin-top: 1%;
+  color: rgb(19, 19, 19);
+  font-size: 20px;
+  line-height: 0px;
 }
 
 #divider {
@@ -82,7 +128,7 @@ h1 {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
+    color: #ffffff;
     background-color: #ffffff;
   }
   a:hover {

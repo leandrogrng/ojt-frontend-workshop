@@ -1,4 +1,4 @@
-import { Table, Thead, Tbody, Tr, Th, Td, chakra, Box } from "@chakra-ui/react";
+import { Table, Thead, Tbody, Tr, Th, Td, Box } from "@chakra-ui/react";
 import {Center} from '@chakra-ui/react'
 import resources from "./resources.json"
 import '../../index.css'

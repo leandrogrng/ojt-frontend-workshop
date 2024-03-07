@@ -4,7 +4,7 @@ import Home from './pages/Home/Home'
 import ErrorPage from './pages/ErrorPage';
 import ResourcesPage from './pages/ResourcesPage';
 import CompaniesPage from './pages/CompaniesPage';
-import Projects from './components/Projects/Projects';
+import ProjectPage from './pages/ProjectsPage';
 
 const routes = [
     {
@@ -15,7 +15,7 @@ const routes = [
             { path: "", element: <Home/>},
             { path: '/resources', element: <ResourcesPage/>},
             { path: '/companies', element: <CompaniesPage/>},
-            { path: '/projects', element: <Projects/>}
+            { path: '/projects', element: <ProjectPage/>}
         ]
     },
     

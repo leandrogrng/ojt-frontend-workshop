@@ -3,7 +3,7 @@ import Companies from './../../components/Companies/Companies';
 
 const CompaniesPage = () => {
     return (
-        <Box>
+        <Box className='containers'>
             <Box>
                 <Heading> Companies </Heading>
             </Box>

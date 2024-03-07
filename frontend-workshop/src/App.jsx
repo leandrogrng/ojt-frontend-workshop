@@ -1,30 +1,32 @@
-import {ChakraProvider, Box, Flex, Stack} from '@chakra-ui/react'
-import { Link, Outlet } from 'react-router-dom'
-import Home from './pages/Home/Home'
-import './App.css'
-import './index.css'
+import {Box, Flex, Stack} from '@chakra-ui/react'
+import { Link, Outlet, useLocation } from 'react-router-dom'
+
+
+
+function App() {
+  const location = useLocation();
+  console.log(location)
+  return (
+    <Flex>
+      <Box id = 'sidebar'>
+        <Box id = 'imageContainer'/>
+        <Stack spacing={10} pt={30}>
+          <Link to="/" className='menu'>Home</Link>
+          <Link to="/resources" className='menu'>Resources</Link>
+          <Link to="/projects" className='menu'>Projects</Link>
+          <Link to="/companies" className='menu'>Companies</Link>
+          <Link to="/requests" className='menu'>Requests</Link>
+        </Stack>
+      </Box>
+      <Box id='outlet'>
+        <Outlet />
+      </Box>
+    </Flex>
+  );
+}
+
 
 /*
-function App() {
-  return (
-    <Box>
-      <Flex>
-        <Box>
-          <Stack>
-            <Link to = "/">Home</Link>
-            <Link to = '/resources'> Resources </Link>
-            <Link to = '/projects'> Projects </Link>
-            <Link to = '/companies'> Companies </Link>
-            <Link to = '/accouting'> Accouting</Link>
-          </Stack>
-        </Box>
-      </Flex>
-      <Outlet />
-    </Box>
-  )
-}
-*/
-
 function App() {
   return (
     <>
@@ -32,8 +34,6 @@ function App() {
         <div className = 'root'>
           <div id= 'sidebar'>
             <Stack>
-
-
               <Link className='menu' to = "/"> Home </Link>
               <Link className='menu' to = '/resources'> Resources </Link>
               <Link className='menu' to = '/projects'> Projects </Link>
@@ -52,5 +52,6 @@ function App() {
     </>
   )
 }
+*/
 
 export default App

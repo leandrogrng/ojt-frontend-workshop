@@ -1,14 +1,10 @@
-import { Table, Thead, Tbody, Tr, Th, Td, chakra, TableContainer } from "@chakra-ui/react";
-import {Center, Square, Circle} from '@chakra-ui/react'
+import { Table, Thead, Tbody, Tr, Th, Td, Box } from "@chakra-ui/react";
+import {Center} from '@chakra-ui/react'
 import companies from "./companies.json"
-import '../../index.css'
-import '../../App.css'
-
-
 
 const CompaniesTable = () => {
     return (
-        <Table variant = 'striped' colorScheme="black" className = 'dataTable'>
+        <Table variant = 'striped' color="black" className = 'dataTable'>
             <Thead backgroundColor='orange'>
                 <Tr>
                     <Th>NAME</Th>
@@ -29,14 +25,17 @@ const CompaniesTable = () => {
                     </Tr>
                 ))}
             </Tbody>
-        </Table>        
+        </Table>  
+ 
+
     )
 }
 const Companies = () => {
     return (
         <Center>
-            <CompaniesTable/>
+            <CompaniesTable/>            
         </Center>
+
     );
 };
 

@@ -3,8 +3,8 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light;
-  color: rgba(255, 255, 255, 0.87);
+  color-scheme: dark;
+  color: rgba(20, 20, 20, 0.87);
   background-color: #ffffff;
 
   font-synthesis: none;
@@ -13,73 +13,145 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* DIV CONTAINERS */
-
-.root {
-  display: flex;
-  margin-top: 2%;
-  height: 1080px;
-  border-radius: 10px;
-}
-
-#sidebar {
-  max-width: 20%;
-  flex: 1;
-  height: 100%;
-  border-radius: 10px;
-}
-
-#display {
-  margin-left: 2%;
-  max-width: 100%;
-  flex: 1;
-  background-color: rgb(207, 207, 207);
-  border-radius: 10px;
-}
-
-#sidebar {
-  background-color: rgb(217, 123, 22);
-  width: 25%
-}
-
-#main {
-  border-radius: 10px;
-}
-
-/* END OF DIV CONTAINERS */
-
 /* TABLES CSS */ 
 .dataTable {
   text-align: left;
   width: 97%;
+  padding: 2rem;
 }
 
-.menu {
-  font-size: 30px;
-  font-weight: bold;
-  color: white;
-}
 
-.menu:hover {
-  color:rgb(255, 195, 130);
-}
 
 /* END OF TABLE CSS */
 
 
-#resourceContainer {
-  width: 100%;
-}
-
-#title {
-  text-align: center;
-}
 
 h1 {
   color: rgb(255, 255, 255);
   text-align: left;
   font-size: 35px;
 }
+
+
+/* -------------------- APP.JSX -----------------------------*/
+
+/* ------ OUTER BOX ----------- */
+#sidebar {
+  width: 250px;
+  height: 875px;
+  flex-shrink: 0;
+  background-color:#f6f6f6 ;
+  border-radius: 10px;
+  box-shadow: 1px 4px 10px rgba(0, 0.1, 0, 0.1);
+  margin-right: 10;
+}
+
+#imageContainer {
+  width : 200px;
+  height : 100px;
+  background-image: url(./assets/twice.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-left: 60px;
+  margin-top: 30px;
+}
+
+#outlet {
+  flex: 1;
+  padding-left: 30px;
+  padding-left: 15rem;
+  padding-right: 15rem;
+}
+
+/* --------- TEXT ---------- */
+.menu {
+  font-size: 25px;
+  font-weight: bold;
+  color: rgb(22, 21, 21);
+  text-align: left;
+  text-decoration: none;
+  text-indent: 10%;
+}
+
+.menu:hover {
+  color:rgb(247, 131, 6);
+  background-color: rgb(222, 222, 222);
+}
+
+/* -------------------- HOME.JSX -----------------------------*/
+
+#home {
+  text-align : center;
+  font-size: 50px;
+  font-weight: 900;
+  color:#3c3c3c;
+}
+
+
+/* -------------------- PROJECTS.JSX -----------------------------*/
+
+/* ---- LAYOUT COMPONENTS ---- */
+
+#projectContainer {
+  background-color: rgb(251, 251, 251);
+  height: auto;
+  width: auto;
+  border-radius: 10px;
+  flex: 1;
+  box-shadow: 0px 4px 10px rgba(66, 66, 66, 0.1);
+  margin: 5;
+  padding: 4;
+}
+
+/* ------- ELEMENTS ------ */
+
+#projectName {
+  margin-bottom: 0px; 
+  padding-bottom: 0;
+}
+
+#projectDescription {
+  margin-top: 0;
+  color: rgb(78, 78, 78);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* -------------------- ERROR_PAGE/INDEX.JSX -----------------------------*/
 
 #error {
   margin-top: 10%;
@@ -96,45 +168,13 @@ h1 {
   text-align: center;
 }
 
-#home {
-  text-align : center;
-  font-size: 50px;
-  font-weight: 900;
-  color:#3c3c3c;
-}
+/* ----------------------- CONTAINERS PER PAGE ------------------------*/
 
-.projectName {
-  margin-top: 30px;
-  font-size: 40px;
-  font-weight: bold;
-  text-align: center;
-  color:rgb(36, 36, 36);
-  line-height: 50px;
-  margin-bottom: 0%;
-  
-
-}
-
-.projectDescription {
-  margin-top: 1%;
-  color: rgb(19, 19, 19);
-  font-size: 20px;
-  line-height: 0px;
-}
-
-#divider {
-  margin-bottom: 10%;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #ffffff;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.containers {
+  height: auto;
+  width: auto;
+  border-radius: 10px;
+  flex: 1;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 4px;
 }

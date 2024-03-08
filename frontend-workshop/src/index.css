@@ -24,14 +24,11 @@
 
 /* END OF TABLE CSS */
 
-
-
 h1 {
   color: rgb(255, 255, 255);
   text-align: left;
   font-size: 35px;
 }
-
 
 /* -------------------- APP.JSX -----------------------------*/
 
@@ -64,18 +61,24 @@ h1 {
 }
 
 /* --------- TEXT ---------- */
-.menu {
-  font-size: 25px;
-  font-weight: bold;
+.menu, .menuActive {
+  font-size: 22px;
   color: rgb(22, 21, 21);
   text-align: left;
   text-decoration: none;
   text-indent: 10%;
+  padding: 10px;
 }
 
 .menu:hover {
-  color:rgb(247, 131, 6);
+  color:rgb(244,28,28);
   background-color: rgb(222, 222, 222);
+}
+
+.menuActive {
+  background-color: rgb(244,28,28);
+  color: white;
+  font-weight: bold;
 }
 
 /* -------------------- HOME.JSX -----------------------------*/
@@ -93,17 +96,16 @@ h1 {
 /* ---- LAYOUT COMPONENTS ---- */
 
 #projectContainer {
-  background-color: rgb(251, 251, 251);
+  background-color: rgb(249, 249, 249);
   height: auto;
   width: auto;
   border-radius: 10px;
   flex: 1;
   box-shadow: 0px 4px 10px rgba(66, 66, 66, 0.1);
-  margin: 5;
-  padding: 4;
+  padding: 1;
 }
 
-/* ------- ELEMENTS ------ */
+/* ------- ELEMENTS -------- */
 
 #projectName {
   margin-bottom: 0px; 
@@ -115,6 +117,14 @@ h1 {
   color: rgb(78, 78, 78);
 }
 
+
+
+/* ---------------- TABLES ----------------- */
+.tableHeader {
+  font-size: 30px;
+  background-color:#fc0339;
+  color:#f6f6f6;
+}
 
 
 

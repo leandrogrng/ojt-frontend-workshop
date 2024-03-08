@@ -1,42 +1,46 @@
-import { Table, Thead, Tbody, Tr, Th, Td, Box } from "@chakra-ui/react";
-import {Center} from '@chakra-ui/react'
-import companies from "./companies.json"
+import { Table, Thead, Tbody, Tr, Th, Td, Box, Button } from "@chakra-ui/react";
+import { PropTypes } from 'prop-types';
 
-const CompaniesTable = () => {
+const CompaniesTable = ({ data = [], onDelete = () => {} }) => {
     return (
-        <Table variant = 'striped' color="black" className = 'dataTable'>
-            <Thead backgroundColor='orange'>
+        <Table className = 'dataTable'>
+            <Thead>
                 <Tr>
                     <Th>NAME</Th>
                     <Th>ADDRESS</Th>                    
                     <Th>CONTACT PERSON</Th>
                     <Th>EMAIL</Th>
                     <Th>CONTACT NUMBER</Th>
+                    <Th isNumeric>
+                        ACTIONS
+                    </Th>
                 </Tr>
             </Thead>
             <Tbody>
-                {companies.map((companies, index) => (
-                    <Tr key={index}>
-                        <Td>{companies.name}</Td>
-                        <Td>{companies.address}</Td>                        
-                        <Td>{companies.contactPerson}</Td>
-                        <Td>{companies.email}</Td>
-                        <Td>{companies.contactNumber}</Td>
-                    </Tr>
-                ))}
+                {data?.length > 0 && data.map ((companies = {}, companiesIndex) => {
+                    return (
+                        <Tr key = {`companies-${companiesIndex}`}>
+                            <Td>{companies.name}</Td>
+                            <Td>{companies.address}</Td>                        
+                            <Td>{companies.contactPerson}</Td>
+                            <Td>{companies.email}</Td>
+                            <Td>{companies.contactNumber}</Td>
+                            <Td isNumeric>
+                                <Button size = 'xs'
+                                        colorScheme="red"
+                                        variant='outline'
+                                        onClick = {() => onDelete(companiesIndex)}>
+                                                Delete
+                                            </Button>
+                            </Td>
+                        </Tr>
+                    )
+
+                })}
             </Tbody>
         </Table>  
- 
-
-    )
-}
-const Companies = () => {
-    return (
-        <Center>
-            <CompaniesTable/>            
-        </Center>
-
     );
-};
+}
 
-export default Companies;
+CompaniesTable.PropTypes = {data: PropTypes.array, onDelete: PropTypes.func}
+export default CompaniesTable;

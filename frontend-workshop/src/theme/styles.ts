@@ -6,6 +6,7 @@ export const styles = {
       bg: mode(`gray.200`, `gray.800`)(props),
       h: "full",
       w: "full",
+      //fontFamily: 'Archivo ExtraBold',
       "div#root": {
         bg: "transparent",
         w: "inherit",
@@ -13,6 +14,7 @@ export const styles = {
         minH: "100%",
         minW: "100vw",
         p: [2, 2, 8],
+        //fontFamily: 'Archivo ExtraBold'
       },
     },
   }),

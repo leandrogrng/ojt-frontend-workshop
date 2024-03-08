@@ -1,37 +1,43 @@
-import { Table, Thead, Tbody, Tr, Th, Td, Box } from "@chakra-ui/react";
-import {Center} from '@chakra-ui/react'
-import resources from "./resources.json"
-import '../../index.css'
-import '../../App.css'
+import { Table, Thead, Tbody, Tr, Th, Td, Button } from "@chakra-ui/react";
+import PropTypes from 'prop-types'
 
-const ResourceTable = () => {
+const ResourceTable = ({ data = [], onDelete = () => {} }) => {
     return (
-        <Table variant = 'striped' colorScheme= 'black' className = 'dataTable'>
-            <Thead backgroundColor = 'orange'>
+        <Table className = 'dataTable'>
+            <Thead className = 'tableHeader'>
                 <Tr>
-                    <Th>NAME</Th>
-                    <Th>RESOURCE TYPE</Th>
+                    <Th color='white' fontSize={20}>NAME</Th>
+                    <Th color='white' fontSize={20}>RESOURCE TYPE</Th>
+                    <Th color='white' fontSize={20} isNumeric>
+                        ACTION
+                    </Th>
                 </Tr>
             </Thead>
             <Tbody>
-                {resources.map((resource, index) => (
-                    <Tr key={index}>
-                        <Td>{`${resource.firstName} ${resource.middleName ? resource.middleName + ' ' : ''}${resource.lastName}`}</Td>
-                        <Td>{resource.type}</Td>
-                    </Tr>
-                ))}
+                {data?.length > 0 && data.map((resources = {}, resourcesIndex) => {
+                    return (
+                        <Tr key = {`resources-${resourcesIndex}`}>
+                            <Td>
+                                {`${resources?.firstName} 
+                                ${resources?.middleName ? resources.middleName + ' ' : ''}
+                                ${resources?.lastName}`}
+                            </Td>
+                            <Td>{resources?.type}</Td>
+                            <Td isNumeric>
+                                <Button     size = 'xs'
+                                            colorScheme="red" 
+                                            variant = 'outline'
+                                            onClick={() => onDelete(resourcesIndex)}>
+                                    Delete
+                                </Button>
+                            </Td>
+                        </Tr>
+                    );
+                })}
             </Tbody>
         </Table>        
-    )
-}
-const Resources = () => {
-    return (
-        <Box id= 'resourceContainer'>
-            <Center>
-                <ResourceTable/>
-            </Center>            
-        </Box>
     );
 };
 
-export default Resources;
+ResourceTable.propTypes = {data: PropTypes.array, onDelete: PropTypes.func};
+export default ResourceTable;

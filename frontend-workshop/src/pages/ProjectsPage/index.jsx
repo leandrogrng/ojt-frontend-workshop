@@ -14,8 +14,9 @@ const ProjectPage = () => {
         })
     };
 
-    const handleDelete = (index) => {
+    const handleDelete = (id) => {
         const newData = [...data];
+        
         newData.splice(index, 1);
         setData(newData);
     };

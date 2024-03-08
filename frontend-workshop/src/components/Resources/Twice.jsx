@@ -4,11 +4,11 @@ import PropTypes from 'prop-types'
 const ResourceTable = ({ data = [], onDelete = () => {} }) => {
     return (
         <Table className = 'dataTable'>
-            <Thead className = 'tableHeader'>
+            <Thead>
                 <Tr>
-                    <Th color='white' fontSize={20}>NAME</Th>
-                    <Th color='white' fontSize={20}>RESOURCE TYPE</Th>
-                    <Th color='white' fontSize={20} isNumeric>
+                    <Th>NAME</Th>
+                    <Th>RESOURCE TYPE</Th>
+                    <Th isNumeric>
                         ACTION
                     </Th>
                 </Tr>
@@ -27,7 +27,7 @@ const ResourceTable = ({ data = [], onDelete = () => {} }) => {
                                 <Button     size = 'xs'
                                             colorScheme="red" 
                                             variant = 'outline'
-                                            onClick={() => onDelete(resourcesIndex)}>
+                                            onClick={() => onDelete(resources?.id)}>
                                     Delete
                                 </Button>
                             </Td>

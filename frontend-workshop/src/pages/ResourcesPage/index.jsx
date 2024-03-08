@@ -1,24 +1,48 @@
 import { Box, Card, CardBody, Stack } from '@chakra-ui/react'
 import Resources from '../../components/Resources/Twice'
-import {useState} from 'react'
+import {useEffect, useState, useRef} from 'react'
 import ResourcesForm from '../../forms/ResourcesForm';
 import Header from './header';
+import mockApi from '../../utils/mockApi';
 
 const ResourcesPage = () => {
     const [isAdding, setIsAdding] = useState(false);
     const [data, setData] = useState([]);
+    const fetched = useRef(false);
 
-    const handleAdd = (newData = {}) => {
-        setData((prevData) => {
-            return [...prevData, newData]
-        })
+    const handleAdd = (data) => {
+        setData((prevData) => [...prevData, data]);
+        setIsAdding(false);
     };
 
-    const handleDelete = (index) => {
-        const newData = [...data];
-        newData.splice(index, 1);
-        setData(newData);
+    const handleDelete = (id) => {
+        const requestData = mockApi('DELETE', `/resources/${id}`);
+        const {status = false} = requestData;
+        if(status) {
+            const newData = [...data];
+            const index = newData.findIndex((item) => item.id === id);
+            console.log(index);
+            if (index !== -1) { 
+                newData.splice(index, 1);
+                setData(newData);
+            }
+        }
     };
+
+    const loadData = () => {
+        if (fetched.current) return;
+        const requestData = mockApi("GET", "/resources");
+        const {status = false, data = []} = requestData;
+
+        if (status) {
+            fetched.current = true;
+            setData(data);
+        }
+    }
+
+    useEffect ( () => {
+        loadData();
+    }, [] )
 
     return (
         <Stack>

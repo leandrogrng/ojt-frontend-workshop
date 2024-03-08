@@ -1,6 +1,4 @@
 import {Center, SimpleGrid, Box, Heading, Text, Button} from '@chakra-ui/react'
-import projects from "./projects.json"
-
 import '../../index.css'
 import { PropTypes } from 'prop-types';
 

@@ -1,13 +1,12 @@
 import { Box, Card, CardBody, Stack } from '@chakra-ui/react'
 import {useState} from 'react'
-import initialData from '../../components/Projects/projects.json'
 import Projects from './../../components/Projects/Projects';
 import Header from './header';
 import ProjectsForm from './../../forms/ProjectForm/index';
 
 const ProjectPage = () => {
     const [isAdding, setIsAdding] = useState(false);
-    const [data, setData] = useState(initialData);
+    const [data, setData] = useState([]);
 
     const handleAdd = (newData = {}) => {
         setData((prevData) => {

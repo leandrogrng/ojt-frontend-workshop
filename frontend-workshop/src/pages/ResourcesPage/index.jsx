@@ -1,13 +1,12 @@
 import { Box, Card, CardBody, Stack } from '@chakra-ui/react'
 import Resources from '../../components/Resources/Twice'
 import {useState} from 'react'
-import initialData from '../../components/Resources/resources.json'
 import ResourcesForm from '../../forms/ResourcesForm';
 import Header from './header';
 
 const ResourcesPage = () => {
     const [isAdding, setIsAdding] = useState(false);
-    const [data, setData] = useState(initialData);
+    const [data, setData] = useState([]);
 
     const handleAdd = (newData = {}) => {
         setData((prevData) => {

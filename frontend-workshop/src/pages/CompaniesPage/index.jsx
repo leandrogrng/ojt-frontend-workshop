@@ -1,13 +1,12 @@
 import { Box, Card, CardBody, Stack } from '@chakra-ui/react';
 import Companies from './../../components/Companies/Companies';
 import { useState } from 'react';
-import initialData from '../../components/Companies/companies.json';
 import Header from './header';
 import CompaniesForm from './../../forms/CompaniesForm/index';
 
 const CompaniesPage = () => {
     const [isAdding, setIsAdding] = useState(false);
-    const [data, setData] = useState(initialData);
+    const [data, setData] = useState([]);
 
     const handleAdd = (newData = {}) => {
         setData((prevData) => {

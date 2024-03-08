@@ -7,19 +7,43 @@ import mockApi from '../../utils/mockApi';
 
 const ResourcesPage = () => {
     const [isAdding, setIsAdding] = useState(false);
-    const [data, setData] = useState([]);
+    const [editId, setEditId] = useState(-1);
+    const [resourcesData, setData] = useState([]);
     const fetched = useRef(false);
 
-    const handleAdd = (data) => {
-        setData((prevData) => [...prevData, data]);
-        setIsAdding(false);
+    const handleAdd = (data = {}) => {
+        let method = "POST";
+        let endpoint = "/resources";
+
+        if(data?.id > -1) {
+            method = "PUT";
+            endpoint = `/resources/${data?.id}`;
+        };
+
+        const requestData = mockApi(method, endpoint, data);
+        const {status = false, data: newData = {}} = requestData;
+
+        if(status) {
+            const newResourceData = [...resourcesData]
+            if(data?.id > -1) {
+                const index = newResourceData.findIndex((item) => item.id === data.id);
+                if (index === -1) {
+                    newResourceData.splice(index, 1, newData);
+                }
+            } else {
+                newResourceData.push(newData);
+            }
+            setData(newResourceData);
+            setIsAdding(false);
+        }
+        setEditId(-1);
     };
 
     const handleDelete = (id) => {
         const requestData = mockApi('DELETE', `/resources/${id}`);
         const {status = false} = requestData;
         if(status) {
-            const newData = [...data];
+            const newData = [...resourcesData];
             const index = newData.findIndex((item) => item.id === id);
             console.log(index);
             if (index !== -1) { 
@@ -27,6 +51,17 @@ const ResourcesPage = () => {
                 setData(newData);
             }
         }
+    };
+
+    const handleEdit = (id) => {
+        setIsAdding(true);
+        //console.log(id);
+        setEditId(id);
+    };
+
+    const handleCancel = () => {
+        setIsAdding(false);
+        setEditId(-1);
     };
 
     const loadData = () => {
@@ -48,13 +83,19 @@ const ResourcesPage = () => {
         <Stack>
             <Header isAdding= {isAdding} toggle = {() => setIsAdding(!isAdding)}/>
             <Box className='containers'>
-                {!isAdding && <Resources data = {data} onDelete={handleDelete}/>}             
+                {!isAdding && 
+                    <Resources  
+                                data = {resourcesData} 
+                                onDelete={handleDelete} 
+                                onEdit={handleEdit}/>}             
             </Box>
             {isAdding && (<Box className='containers'>
                 <Card>
                     <CardBody>
-                        <ResourcesForm  onAdd={handleAdd} 
-                                        onExit={() => setIsAdding (false)}/>
+                        <ResourcesForm  id={editId}    
+                                        onAdd={handleAdd} 
+                                        onCancel={handleCancel}
+                                        />
                     </CardBody>
                 </Card>
             </Box>)}

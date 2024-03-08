@@ -4,7 +4,7 @@ import theme from './theme'
 
 function App() {
   const {pathname} = useLocation();
-  console.log(pathname);
+  //console.log(pathname);
   return (
     <ChakraProvider theme={theme}>
       <Flex>

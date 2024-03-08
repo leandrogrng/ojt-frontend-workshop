@@ -1,6 +1,7 @@
 import { Button, ButtonGroup, FormControl, FormLabel, HStack, Input, Spacer, Stack } from '@chakra-ui/react';
 import { PropTypes } from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import mockApi from '../../utils/mockApi';
 
 const initialData = {
     firstName: '',
@@ -9,14 +10,14 @@ const initialData = {
     type: '',
 };
 
-const ResourcesForm = ({onAdd = () => {}, onExit = () => {} }) => {
+const ResourcesForm = ({ id = -1, onAdd, onCancel }) => {
     const [formData, setFormData] = useState(initialData);
+    const fetched = useRef(false);
 
     const handleAdd = (e) => {
         e.preventDefault();
         onAdd(formData);
         setFormData(initialData);
-        onExit();
     };
     const handleChange = (e) => {
         const{name, value} = e.target;
@@ -27,8 +28,19 @@ const ResourcesForm = ({onAdd = () => {}, onExit = () => {} }) => {
 
     const handleCancel = () => {
         setFormData(initialData);
-        onExit();
+        onCancel();
     }
+
+    useEffect (() => {
+        if (id === -1 || fetched.current) return;
+        const requestData = mockApi("GET", `/resources/${id}`);
+        const {status = false, data = {}} = requestData;
+        if(status) {
+            fetched.current = true;
+            setFormData(data);
+        }
+    }, [id])
+
     return (
         <form onSubmit={handleAdd}>
             <Stack>
@@ -72,7 +84,7 @@ const ResourcesForm = ({onAdd = () => {}, onExit = () => {} }) => {
                             Cancel
                         </Button>
                         <Button colorScheme = 'green' type='submit'> 
-                            Add Resource 
+                            {id === -1 ? `Add` : `Update`} Resource
                         </Button>                        
                     </ButtonGroup>
 
@@ -82,5 +94,8 @@ const ResourcesForm = ({onAdd = () => {}, onExit = () => {} }) => {
     )
 }
 
-ResourcesForm.propTypes = {onAdd: PropTypes.func, onExit: PropTypes.func};
+ResourcesForm.propTypes = {
+    id: PropTypes.number, 
+    onAdd: PropTypes.func, 
+    onExit: PropTypes.func};
 export default ResourcesForm;

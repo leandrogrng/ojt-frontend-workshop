@@ -1,7 +1,8 @@
-import { Table, Thead, Tbody, Tr, Th, Td, Button } from "@chakra-ui/react";
+import { Table, Thead, Tbody, Tr, Th, Td, Button, ButtonGroup } from "@chakra-ui/react";
 import PropTypes from 'prop-types'
 
-const ResourceTable = ({ data = [], onDelete = () => {} }) => {
+const ResourceTable = ({ data = [], onDelete, onEdit}) => {
+    console.log("DATA ON THE TABLE: ", data);
     return (
         <Table className = 'dataTable'>
             <Thead>
@@ -24,12 +25,20 @@ const ResourceTable = ({ data = [], onDelete = () => {} }) => {
                             </Td>
                             <Td>{resources?.type}</Td>
                             <Td isNumeric>
-                                <Button     size = 'xs'
-                                            colorScheme="red" 
-                                            variant = 'outline'
-                                            onClick={() => onDelete(resources?.id)}>
-                                    Delete
-                                </Button>
+                                <ButtonGroup> 
+                                    <Button     size = 'xs'
+                                                colorScheme = 'green'
+                                                variant = 'outline'
+                                                onClick = {() => onEdit(resources?.id) }>
+                                        Edit
+                                    </Button>                              
+                                    <Button     size = 'xs'
+                                                colorScheme="red" 
+                                                variant = 'outline'
+                                                onClick={() => onDelete(resources?.id)}>
+                                        Delete
+                                    </Button>
+                                </ButtonGroup>
                             </Td>
                         </Tr>
                     );
@@ -39,5 +48,5 @@ const ResourceTable = ({ data = [], onDelete = () => {} }) => {
     );
 };
 
-ResourceTable.propTypes = {data: PropTypes.array, onDelete: PropTypes.func};
+ResourceTable.propTypes = {data: PropTypes.array, onDelete: PropTypes.func, onEdit: PropTypes.func};
 export default ResourceTable;

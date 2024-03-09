@@ -1,6 +1,7 @@
 import { Button, ButtonGroup, FormControl, FormLabel, HStack, Input, Spacer, Stack } from '@chakra-ui/react';
 import { PropTypes } from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import mockApi from '../../utils/mockApi';
 
 const initialData = {
     name: '',
@@ -8,18 +9,18 @@ const initialData = {
     email: '',
     address: '',
     contactNumber: '',
-
 };
 
-const CompaniesForm = ({onAdd = () => {}, onExit = () => {} }) => {
+const CompaniesForm = ({id = -1, onAdd, onCancel}) => {
     const [formData, setFormData] = useState(initialData);
+    const fetched = useRef(false);
 
     const handleAdd = (e) => {
         e.preventDefault();
         onAdd(formData);
         setFormData(initialData);
-        onExit();
     };
+
     const handleChange = (e) => {
         const{name, value} = e.target;
         setFormData((prevData) => {
@@ -29,8 +30,19 @@ const CompaniesForm = ({onAdd = () => {}, onExit = () => {} }) => {
 
     const handleCancel = () => {
         setFormData(initialData);
-        onExit();
+        onCancel();
     }
+
+    useEffect (() => {
+        if (id === -1 || fetched.current) return;
+        const requestData = mockApi("GET", `/companies/${id}`);
+        const {status = false, data = {}} = requestData;
+        if(status) {
+            fetched.current = true;
+            setFormData(data);
+        }
+    }, [id])
+
     return (
         <form onSubmit={handleAdd}>
             <Stack>
@@ -82,7 +94,7 @@ const CompaniesForm = ({onAdd = () => {}, onExit = () => {} }) => {
                             Cancel
                         </Button>
                         <Button colorScheme = 'green' type='submit'> 
-                            Add Company 
+                            {id === -1 ? `Add` : `Update`} Company
                         </Button>                        
                     </ButtonGroup>
                 </HStack>               
@@ -91,5 +103,8 @@ const CompaniesForm = ({onAdd = () => {}, onExit = () => {} }) => {
     )
 }
 
-CompaniesForm.propTypes = {onAdd: PropTypes.func, onExit: PropTypes.func};
+CompaniesForm.propTypes = {
+    id: PropTypes.number,
+    onAdd: PropTypes.func, 
+    onExit: PropTypes.func};
 export default CompaniesForm;

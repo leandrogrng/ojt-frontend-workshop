@@ -19,6 +19,7 @@ const ResourcesForm = ({ id = -1, onAdd, onCancel }) => {
         onAdd(formData);
         setFormData(initialData);
     };
+    
     const handleChange = (e) => {
         const{name, value} = e.target;
         setFormData((prevData) => {
@@ -87,7 +88,6 @@ const ResourcesForm = ({ id = -1, onAdd, onCancel }) => {
                             {id === -1 ? `Add` : `Update`} Resource
                         </Button>                        
                     </ButtonGroup>
-
                 </HStack>               
             </Stack>
         </form>

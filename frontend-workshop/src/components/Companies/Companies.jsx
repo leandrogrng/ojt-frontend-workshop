@@ -1,7 +1,7 @@
-import { Table, Thead, Tbody, Tr, Th, Td, Box, Button } from "@chakra-ui/react";
+import { Table, Thead, Tbody, Tr, Th, Td, Box, Button, ButtonGroup } from "@chakra-ui/react";
 import { PropTypes } from 'prop-types';
 
-const CompaniesTable = ({ data = [], onDelete = () => {} }) => {
+const CompaniesTable = ({ data = [], onDelete, onEdit }) => {
     return (
         <Table className = 'dataTable'>
             <Thead>
@@ -26,12 +26,20 @@ const CompaniesTable = ({ data = [], onDelete = () => {} }) => {
                             <Td>{companies.email}</Td>
                             <Td>{companies.contactNumber}</Td>
                             <Td isNumeric>
-                                <Button size = 'xs'
-                                        colorScheme="red"
-                                        variant='outline'
-                                        onClick = {() => onDelete(companiesIndex)}>
-                                                Delete
-                                            </Button>
+                                <ButtonGroup> 
+                                        <Button     size = 'xs'
+                                                    colorScheme = 'green'
+                                                    variant = 'outline'
+                                                    onClick = {() => onEdit(companies?.id) }>
+                                            Edit
+                                        </Button>                              
+                                        <Button     size = 'xs'
+                                                    colorScheme="red" 
+                                                    variant = 'outline'
+                                                    onClick={() => onDelete(companies?.id)}>
+                                            Delete
+                                        </Button>
+                                    </ButtonGroup>
                             </Td>
                         </Tr>
                     )
@@ -42,5 +50,5 @@ const CompaniesTable = ({ data = [], onDelete = () => {} }) => {
     );
 }
 
-CompaniesTable.PropTypes = {data: PropTypes.array, onDelete: PropTypes.func}
+CompaniesTable.propTypes = {data: PropTypes.array, onDelete: PropTypes.func, onEdit: PropTypes.func}
 export default CompaniesTable;

@@ -2,7 +2,7 @@ import { Table, Thead, Tbody, Tr, Th, Td, Button, ButtonGroup } from "@chakra-ui
 import PropTypes from 'prop-types'
 
 const ResourceTable = ({ data = [], onDelete, onEdit}) => {
-    console.log("DATA ON THE TABLE: ", data);
+    //console.log("DATA ON THE TABLE: ", data);
     return (
         <Table className = 'dataTable'>
             <Thead>
@@ -48,5 +48,8 @@ const ResourceTable = ({ data = [], onDelete, onEdit}) => {
     );
 };
 
-ResourceTable.propTypes = {data: PropTypes.array, onDelete: PropTypes.func, onEdit: PropTypes.func};
+ResourceTable.propTypes = {
+    data: PropTypes.array, 
+    onDelete: PropTypes.func, 
+    onEdit: PropTypes.func};
 export default ResourceTable;

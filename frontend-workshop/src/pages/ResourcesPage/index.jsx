@@ -55,7 +55,6 @@ const ResourcesPage = () => {
 
     const handleEdit = (id) => {
         setIsAdding(true);
-        //console.log(id);
         setEditId(id);
     };
 

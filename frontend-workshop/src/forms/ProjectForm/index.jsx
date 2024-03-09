@@ -1,6 +1,7 @@
 import { Button, ButtonGroup, FormControl, FormLabel, HStack, Input, Spacer, Stack } from '@chakra-ui/react';
 import { PropTypes } from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import mockApi from './../../utils/mockApi';
 
 const initialData = {
     name: '',
@@ -8,15 +9,17 @@ const initialData = {
     alias: '',
 };
 
-const ProjectsForm = ({onAdd = () => {}, onExit = () => {} }) => {
+
+const ProjectsForm = ({ id= -1, onAdd, onCancel }) => {
     const [formData, setFormData] = useState(initialData);
+    const fetched = useRef(false);
 
     const handleAdd = (e) => {
         e.preventDefault();
         onAdd(formData);
         setFormData(initialData);
-        onExit();
     };
+
     const handleChange = (e) => {
         const{name, value} = e.target;
         setFormData((prevData) => {
@@ -26,8 +29,19 @@ const ProjectsForm = ({onAdd = () => {}, onExit = () => {} }) => {
 
     const handleCancel = () => {
         setFormData(initialData);
-        onExit();
+        onCancel();
     }
+
+    useEffect (() => {
+        if (id === -1 || fetched.current) return;
+        const requestData = mockApi("GET", `/projects/${id}`);
+        const {status = false, data = {}} = requestData;
+        if(status) {
+            fetched.current = true;
+            setFormData(data);
+        }
+    }, [id])
+
     return (
         <form onSubmit={handleAdd}>
             <Stack>
@@ -63,15 +77,17 @@ const ProjectsForm = ({onAdd = () => {}, onExit = () => {} }) => {
                             Cancel
                         </Button>
                         <Button colorScheme = 'green' type='submit'> 
-                            Add Resource 
+                            {id === -1 ? `Add` : `Update`} Project 
                         </Button>                        
                     </ButtonGroup>
-
                 </HStack>               
             </Stack>
         </form>
     )
 }
 
-ProjectsForm.propTypes = {onAdd: PropTypes.func, onExit: PropTypes.func};
+ProjectsForm.propTypes = {
+    id: PropTypes, 
+    onAdd: PropTypes.func, 
+    onExit: PropTypes.func};
 export default ProjectsForm;

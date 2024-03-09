@@ -3,8 +3,8 @@ import { PropTypes } from 'prop-types';
 
 const Header = ({isAdding = false, toggle}) => {
     return (
-        <HStack>
-            <Heading className = "pageHeader" textAlign='center'> Companies </Heading>
+        <HStack className = "pageHeader">
+            <Heading textAlign='center'> Companies </Heading>
             <Spacer/>
             {!isAdding && (
                 <Button colorScheme = "green"

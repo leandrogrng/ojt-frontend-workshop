@@ -1,46 +1,28 @@
-import { Table, Thead, Tbody, Tr, Th, Td, Button, ButtonGroup } from "@chakra-ui/react";
+import { Table, Thead, Tbody, Tr, Th, Td, Button, ButtonGroup, LinkBox, LinkOverlay } from "@chakra-ui/react";
 import PropTypes from 'prop-types'
 
-const ResourceTable = ({ data = [], onDelete, onEdit}) => {
-    //console.log("DATA ON THE TABLE: ", data);
+const ResourceTable = ({ data = []}) => {
     return (
         <Table className = 'dataTable'>
             <Thead>
                 <Tr>
                     <Th>NAME</Th>
                     <Th>RESOURCE TYPE</Th>
-                    <Th isNumeric>
-                        ACTION
-                    </Th>
                 </Tr>
             </Thead>
             <Tbody>
-                {data?.length > 0 && data.map((resources = {}, resourcesIndex) => {
+                {data?.length > 0 && data.map((resources, id) => {
                     return (
-                        <Tr onClick={() => navigate(`resources/${resources.id}`)} key = {`resources-${resourcesIndex}`}>
+                        <LinkBox as={Tr} key = {`resources-${id}`}> 
                             <Td>
-                                {`${resources?.firstName} 
-                                ${resources?.middleName ? resources.middleName + ' ' : ''}
-                                ${resources?.lastName}`}
+                                <LinkOverlay href = {`/resources/${resources?.id}`}>
+                                    {`${resources?.firstName} 
+                                    ${resources?.middleName ? resources.middleName + ' ' : ''}
+                                    ${resources?.lastName}`}
+                                </LinkOverlay>
                             </Td>
                             <Td>{resources?.type}</Td>
-                            <Td isNumeric>
-                                <ButtonGroup> 
-                                    <Button     size = 'xs'
-                                                colorScheme = 'green'
-                                                variant = 'outline'
-                                                onClick = {() => onEdit(resources?.id) }>
-                                        Edit
-                                    </Button>                              
-                                    <Button     size = 'xs'
-                                                colorScheme="red" 
-                                                variant = 'outline'
-                                                onClick={() => onDelete(resources?.id)}>
-                                        Delete
-                                    </Button>
-                                </ButtonGroup>
-                            </Td>
-                        </Tr>
+                        </LinkBox>
                     );
                 })}
             </Tbody>
@@ -48,8 +30,5 @@ const ResourceTable = ({ data = [], onDelete, onEdit}) => {
     );
 };
 
-ResourceTable.propTypes = {
-    data: PropTypes.array, 
-    onDelete: PropTypes.func, 
-    onEdit: PropTypes.func};
+ResourceTable.propTypes = {data: PropTypes.array};
 export default ResourceTable;

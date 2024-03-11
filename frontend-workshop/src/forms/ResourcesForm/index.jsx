@@ -1,8 +1,7 @@
 import { Button, ButtonGroup, FormControl, FormLabel, HStack, Input, Spacer, Stack, ChakraProvider } from '@chakra-ui/react';
-import { PropTypes } from 'prop-types';
 import { useEffect, useRef, useState } from 'react';
 import mockApi from '../../utils/mockApi';
-import theme from '../../theme';
+import PropTypes  from 'prop-types';
 
 const initialData = {
     firstName: '',
@@ -11,26 +10,27 @@ const initialData = {
     type: '',
 };
 
-const ResourcesForm = ({ id = -1, onAdd, onCancel }) => {
+const ResourcesForm = ({ id = -1, onAdd, onExit}) => {
     const [formData, setFormData] = useState(initialData);
     const fetched = useRef(false);
+    
+    const handleChange = (e) => {
+        const{name, value} = e.target;
+        setFormData((prevData) => {
+            return {...prevData, [name]: value};
+        });
+    }
 
     const handleAdd = (e) => {
         e.preventDefault();
         onAdd(formData);
         setFormData(initialData);
+        onExit();
     };
     
-    const handleChange = (e) => {
-        const{name, value} = e.target;
-        setFormData((prevData) => {
-            return {...prevData, [name]: value}
-        });
-    }
-
     const handleCancel = () => {
         setFormData(initialData);
-        onCancel();
+        onExit();
     }
 
     useEffect (() => {
@@ -41,7 +41,7 @@ const ResourcesForm = ({ id = -1, onAdd, onCancel }) => {
             fetched.current = true;
             setFormData(data);
         }
-    }, [id])
+    }, [id]);
 
     return (
         <form onSubmit={handleAdd}>
@@ -86,7 +86,7 @@ const ResourcesForm = ({ id = -1, onAdd, onCancel }) => {
                             Cancel
                         </Button>
                         <Button colorScheme = 'green' type='submit'> 
-                            {id === -1 ? `Add` : `Update`} Resource
+                            {id === 'add' ? `Add` : `Update`} Resource
                         </Button>                        
                     </ButtonGroup>
                 </HStack>               
@@ -96,7 +96,7 @@ const ResourcesForm = ({ id = -1, onAdd, onCancel }) => {
 }
 
 ResourcesForm.propTypes = {
-    id: PropTypes.number, 
+    id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     onAdd: PropTypes.func, 
     onExit: PropTypes.func};
 export default ResourcesForm;

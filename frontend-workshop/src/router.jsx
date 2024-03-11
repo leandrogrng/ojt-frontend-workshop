@@ -5,16 +5,17 @@ import ErrorPage from './pages/ErrorPage';
 import ResourcesPage from './pages/ResourcesPage';
 import CompaniesPage from './pages/CompaniesPage';
 import ProjectPage from './pages/ProjectsPage';
+import ViewResource from './pages/ViewResource';
 
 const routes = [
     {
         path: "/",
         element: <App/>,
         children: [
-            { path: '/404', element: <ErrorPage/>},
             { path: "", element: <Home/>},
+            { path: '/404', element: <ErrorPage/>},
             { path: '/resources', element: <ResourcesPage/>},
-            { path: '/resources/:id', element: <ResourcesPage/>},
+            { path: '/resources/:id', element: <ViewResource />},
             { path: '/companies', element: <CompaniesPage/>},
             { path: '/projects', element: <ProjectPage/>}
         ]

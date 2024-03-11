@@ -17,7 +17,7 @@ const ResourceTable = ({ data = [], onDelete, onEdit}) => {
             <Tbody>
                 {data?.length > 0 && data.map((resources = {}, resourcesIndex) => {
                     return (
-                        <Tr key = {`resources-${resourcesIndex}`}>
+                        <Tr onClick={() => navigate(`resources/${resources.id}`)} key = {`resources-${resourcesIndex}`}>
                             <Td>
                                 {`${resources?.firstName} 
                                 ${resources?.middleName ? resources.middleName + ' ' : ''}

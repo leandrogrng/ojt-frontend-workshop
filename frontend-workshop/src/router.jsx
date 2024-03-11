@@ -14,6 +14,7 @@ const routes = [
             { path: '/404', element: <ErrorPage/>},
             { path: "", element: <Home/>},
             { path: '/resources', element: <ResourcesPage/>},
+            { path: '/resources/:id', element: <ResourcesPage/>},
             { path: '/companies', element: <CompaniesPage/>},
             { path: '/projects', element: <ProjectPage/>}
         ]

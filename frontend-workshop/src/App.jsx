@@ -1,10 +1,10 @@
 import {Box, ChakraProvider, Flex, Stack} from '@chakra-ui/react'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 import theme from './theme'
+import mockApi from './utils/mockApi';
 
 function App() {
   const {pathname} = useLocation();
-  //console.log(pathname);
   return (
     <ChakraProvider theme={theme}>
       <Flex>

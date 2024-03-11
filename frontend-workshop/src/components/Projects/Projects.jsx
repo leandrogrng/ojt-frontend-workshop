@@ -24,7 +24,7 @@ function ProjectContent() {
 
 function ProjectContent({ data = [], onDelete, onEdit }) {
   return (
-      <SimpleGrid columns={2} spacing={7} padding={10} id='projectGrid'>
+      <SimpleGrid columns={2} spacing={7} id='projectGrid'>
           {data?.length > 0 && data.map((project = {}, projectIndex) => {
                 return (
                     <Box key={`projects-${projectIndex}`} id='projectContainer'>

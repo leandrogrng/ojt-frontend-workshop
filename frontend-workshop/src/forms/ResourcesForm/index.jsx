@@ -1,7 +1,8 @@
-import { Button, ButtonGroup, FormControl, FormLabel, HStack, Input, Spacer, Stack } from '@chakra-ui/react';
+import { Button, ButtonGroup, FormControl, FormLabel, HStack, Input, Spacer, Stack, ChakraProvider } from '@chakra-ui/react';
 import { PropTypes } from 'prop-types';
 import { useEffect, useRef, useState } from 'react';
 import mockApi from '../../utils/mockApi';
+import theme from '../../theme';
 
 const initialData = {
     firstName: '',

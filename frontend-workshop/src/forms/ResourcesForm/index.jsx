@@ -1,7 +1,8 @@
-import { Button, ButtonGroup, FormControl, FormLabel, HStack, Input, Spacer, Stack, ChakraProvider } from '@chakra-ui/react';
+import { Button, ButtonGroup, FormControl, FormLabel, HStack, Input, Spacer, Stack, Heading, FormErrorMessage, Select } from '@chakra-ui/react';
 import { useEffect, useRef, useState } from 'react';
 import mockApi from '../../utils/mockApi';
 import PropTypes  from 'prop-types';
+import { validateResource } from '../../utils/resourceValidator';
 
 const initialData = {
     firstName: '',
@@ -11,6 +12,7 @@ const initialData = {
 };
 
 const ResourcesForm = ({ id = -1, onAdd, onExit}) => {
+    const [errors, setErrors] = useState({});
     const [formData, setFormData] = useState(initialData);
     const fetched = useRef(false);
     
@@ -23,9 +25,17 @@ const ResourcesForm = ({ id = -1, onAdd, onExit}) => {
 
     const handleAdd = (e) => {
         e.preventDefault();
-        onAdd(formData);
-        setFormData(initialData);
-        onExit();
+        const validator = validateResource(formData);
+        const {isValid = false, errors = {}} = validator;
+
+        if(isValid) {
+            onAdd(formData);
+            setErrors({});
+            setFormData(initialData);
+            onExit();
+        } else {
+            setErrors(errors);
+        }
     };
     
     const handleCancel = () => {
@@ -45,38 +55,43 @@ const ResourcesForm = ({ id = -1, onAdd, onExit}) => {
 
     return (
         <form onSubmit={handleAdd}>
+            <Heading> {id === 'add' ? 'Add' : 'Update'} Resource </Heading>
             <Stack>
-                <FormControl>
+                <FormControl isInvalid={errors?.firstName} isRequired={1}>
                     <FormLabel>First Name</FormLabel>
                     <Input 
                         type='text' 
                         name='firstName' 
                         value={formData.firstName} 
                         onChange={handleChange}/>
+                        <FormErrorMessage>{errors?.firstName}</FormErrorMessage>
                 </FormControl> 
-                <FormControl>
+                <FormControl isInvalid = {errors?.middleName}>
                     <FormLabel>Middle  Name</FormLabel>
                     <Input 
                         type='text' 
                         name='middleName' 
                         value={formData.middleName} 
                         onChange={handleChange}/>
+                        <FormErrorMessage>{errors?.middleName}</FormErrorMessage>
                 </FormControl> 
-                <FormControl>
+                <FormControl isInvalid={errors?.lastName} isRequired={1}>
                     <FormLabel>Last Name</FormLabel>
                     <Input 
                         type='text' 
                         name='lastName' 
                         value={formData.lastName} 
                         onChange={handleChange}/>
+                        <FormErrorMessage>{errors?.lastName}</FormErrorMessage>
                 </FormControl> 
-                <FormControl>
+                <FormControl isInvalid={errors?.type}>
                     <FormLabel>Type</FormLabel>
                     <Input 
                         type='text' 
                         name='type' 
                         value={formData.type} 
                         onChange={handleChange}/>
+                        <FormErrorMessage>{errors?.type}</FormErrorMessage>
                 </FormControl> 
                 <HStack>
                     <Spacer />

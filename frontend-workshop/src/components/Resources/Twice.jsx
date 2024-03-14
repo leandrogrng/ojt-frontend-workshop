@@ -13,7 +13,7 @@ const ResourceTable = ({ data = []}) => {
             <Tbody>
                 {data?.length > 0 && data.map((resources, id) => {
                     return (
-                        <LinkBox as={Tr} key = {`resources-${id}`}> 
+                        <LinkBox as={Tr} key = {`resources-${id}`} className = 'row'> 
                             <Td>
                                 <LinkOverlay href = {`/resources/${resources?.id}`}>
                                     {`${resources?.firstName} 

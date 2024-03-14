@@ -10,9 +10,9 @@ const ResourcesPage = () => {
 
     const loadData = () => {
         if (fetched.current) return;
-        console.log("FETCH STATUS: ", fetched.current)
         const requestData = mockApi("GET", "/resources");
         const {status = false, data = {}} = requestData;
+        
         if (status) {
             fetched.current = true;
             setData(data);

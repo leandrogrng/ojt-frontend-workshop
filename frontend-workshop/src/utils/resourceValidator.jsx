@@ -11,18 +11,12 @@ const validLNameLen = (data) => {
     return data?.lastName.length >= 2;
 }
 
-
 export const validateResource = (data) => {
     const retData = {isValid: true, errors: {}}
 
     if(!validNameChr({firstName: data?.firstName})) {
         retData.isValid = false;
         retData.errors.firstName = 'Invalid characters'
-    }
-
-    if(!validNameChr({middleName: data?.middleName})) {
-        retData.isValid = false;
-        retData.errors.middleName = 'Invalid characters'
     }
 
     if(!validNameChr({lastName: data?.lastName})) {

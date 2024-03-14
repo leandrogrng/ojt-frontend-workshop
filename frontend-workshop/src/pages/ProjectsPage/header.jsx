@@ -1,19 +1,26 @@
-import { Button, HStack, Heading, Spacer } from "@chakra-ui/react"
-import { PropTypes } from 'prop-types';
+import { Button, ButtonGroup, HStack, Heading, Spacer } from "@chakra-ui/react"
+import { Link } from "react-router-dom";
+import mockApi from "../../utils/mockApi";
 
-const Header = ({isAdding = false, toggle}) => {
+const Header = () => {
+    const handleCancel = () => {
+        mockApi('POST', '/reset-data');
+        window.location.reload();
+    }
+
     return (
-        <HStack className="pageHeader">
+        <HStack className = "pageHeader">
             <Heading textAlign='center'> Projects </Heading>
             <Spacer/>
-            {!isAdding && (
-                <Button colorScheme = "green"
-                        onClick= {toggle}> 
-                    Add projects 
-                </Button>)}
+            <ButtonGroup>
+                    <Button colorScheme='orange' borderWidth='1px' onClick={handleCancel}> Reset </Button>
+                    <Button as={Link} to='/projects/add' colorScheme = "green"> 
+                        Add project 
+                    </Button>                    
+            </ButtonGroup>
         </HStack>
     )
 }
 
-Header.prototype = {isAdding: PropTypes.boolen, toggle: PropTypes.func};
+Header.propType = {};
 export default Header;

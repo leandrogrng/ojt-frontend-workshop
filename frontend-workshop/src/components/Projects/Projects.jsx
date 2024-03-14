@@ -1,56 +1,26 @@
-import {Center, SimpleGrid, Box, Heading, Text, Button, ButtonGroup} from '@chakra-ui/react'
+import {Center, SimpleGrid, Box, Heading, Text, Button, ButtonGroup, LinkOverlay, LinkBox} from '@chakra-ui/react'
 import '../../index.css'
 import { PropTypes } from 'prop-types';
+import { Link } from 'react-router-dom';
 
-/*
-function ProjectContent() {
-    return (
-      <SimpleGrid columns={2} spacing={10} padding={10} margin={10} id = 'projectGrid'>
-        {projects.map((project, index) => (
-          <Box  key={index} id = 'projectContainer'>
-                <Heading id='projectName'>{project.name}</Heading>
-                <Text id='projectDescription' >{project.description}  </Text> 
-                <Button size = 'xs'
-                        colorScheme = 'red'
-                        variant = 'outline'
-                        onClick={() => onDelete(projectIndex)}>Delete</Button>
-          </Box>
-        ))}
-      </SimpleGrid>
-    );
-  }
-*/
-
-
-function ProjectContent({ data = [], onDelete, onEdit }) {
+function ProjectContent({ data = [] }) {
   return (
       <SimpleGrid columns={2} spacing={7} id='projectGrid'>
-          {data?.length > 0 && data.map((project = {}, projectIndex) => {
+          {data?.length > 0 && data.map((project, id) => {
                 return (
-                    <Box key={`projects-${projectIndex}`} id='projectContainer'>
-                        <Heading id='projectName'>{project.name}</Heading>
+                    <LinkBox as={Box} key={`/projects-${id}`} id='projectContainer'>
+                        <Heading id='projectName'>
+                          <LinkOverlay href={`/projects/${project.id}`}>
+                            {project.name}
+                          </LinkOverlay>
+                          </Heading>
                         <Text id='projectDescription'>{project.description}</Text>
-                        <ButtonGroup id = 'projectBtn'> 
-                                    <Button     size = 'xs'
-                                                colorScheme = 'green'
-                                                variant = 'outline'
-                                                onClick = {() => onEdit(project?.id) }>
-                                        Edit
-                                    </Button>                              
-                                    <Button     size = 'xs'
-                                                colorScheme="red" 
-                                                variant = 'outline'
-                                                onClick={() => onDelete(project?.id)}>
-                                        Delete
-                                    </Button>
-                                </ButtonGroup>
-                    </Box>
+                    </LinkBox>
                 );
             })}
       </SimpleGrid>
   );
 }
-
 
 ProjectContent.propTypes = {
   data: PropTypes.array, 

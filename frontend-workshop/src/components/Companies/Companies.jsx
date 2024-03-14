@@ -1,7 +1,7 @@
-import { Table, Thead, Tbody, Tr, Th, Td, Box, Button, ButtonGroup } from "@chakra-ui/react";
+import { Table, Thead, Tbody, Tr, Th, Td, Box, Button, ButtonGroup, LinkBox, LinkOverlay } from "@chakra-ui/react";
 import { PropTypes } from 'prop-types';
 
-const CompaniesTable = ({ data = [], onDelete, onEdit }) => {
+const CompaniesTable = ({ data = []}) => {
     return (
         <Table className = 'dataTable'>
             <Thead>
@@ -11,37 +11,21 @@ const CompaniesTable = ({ data = [], onDelete, onEdit }) => {
                     <Th>CONTACT PERSON</Th>
                     <Th>EMAIL</Th>
                     <Th>CONTACT NUMBER</Th>
-                    <Th isNumeric>
-                        ACTIONS
-                    </Th>
                 </Tr>
             </Thead>
             <Tbody>
-                {data?.length > 0 && data.map ((companies = {}, companiesIndex) => {
+                {data?.length > 0 && data.map ((companies, companiesIndex) => {
                     return (
-                        <Tr key = {`companies-${companiesIndex}`}>
-                            <Td>{companies.name}</Td>
+                        <LinkBox as = {Tr} key = {`companies-${companiesIndex}`} className='row'>
+                            <Td>
+                                <LinkOverlay href = {`companies/${companies?.id}`}>
+                                    {companies.name} </LinkOverlay>
+                            </Td>
                             <Td>{companies.address}</Td>                        
                             <Td>{companies.contactPerson}</Td>
                             <Td>{companies.email}</Td>
                             <Td>{companies.contactNumber}</Td>
-                            <Td isNumeric>
-                                <ButtonGroup> 
-                                        <Button     size = 'xs'
-                                                    colorScheme = 'green'
-                                                    variant = 'outline'
-                                                    onClick = {() => onEdit(companies?.id) }>
-                                            Edit
-                                        </Button>                              
-                                        <Button     size = 'xs'
-                                                    colorScheme="red" 
-                                                    variant = 'outline'
-                                                    onClick={() => onDelete(companies?.id)}>
-                                            Delete
-                                        </Button>
-                                    </ButtonGroup>
-                            </Td>
-                        </Tr>
+                        </LinkBox>
                     )
 
                 })}

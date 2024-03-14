@@ -1,7 +1,9 @@
-import { Button, ButtonGroup, FormControl, FormLabel, HStack, Input, Spacer, Stack } from '@chakra-ui/react';
+import { Box, Button, ButtonGroup, FormControl, FormErrorMessage, FormLabel, HStack, Heading, Input, Spacer, Stack } from '@chakra-ui/react';
 import { PropTypes } from 'prop-types';
 import { useEffect, useRef, useState } from 'react';
 import mockApi from './../../utils/mockApi';
+import Swal from 'sweetalert2';
+import validateProject from '../../utils/projectValidator';
 
 const initialData = {
     name: '',
@@ -9,17 +11,11 @@ const initialData = {
     alias: '',
 };
 
-
-const ProjectsForm = ({ id= -1, onAdd, onCancel }) => {
+const ProjectsForm = ({ id= -1, onAdd, onExit }) => {
+    const [errors, setErrors] = useState({});
     const [formData, setFormData] = useState(initialData);
     const fetched = useRef(false);
-
-    const handleAdd = (e) => {
-        e.preventDefault();
-        onAdd(formData);
-        setFormData(initialData);
-    };
-
+    
     const handleChange = (e) => {
         const{name, value} = e.target;
         setFormData((prevData) => {
@@ -27,9 +23,26 @@ const ProjectsForm = ({ id= -1, onAdd, onCancel }) => {
         });
     }
 
+    const handleAdd = (e) => {
+        e.preventDefault();
+        const validator = validateProject(formData);
+        const {isValid = false, errors = {}} = validator;
+
+        if(isValid) {
+            onAdd(formData);
+            setErrors({});  
+            //setFormData(initialData);
+            onExit();
+            
+        } else {
+            setErrors(errors);
+            
+        }
+    }
+
     const handleCancel = () => {
         setFormData(initialData);
-        onCancel();
+        onExit();
     }
 
     useEffect (() => {
@@ -44,30 +57,34 @@ const ProjectsForm = ({ id= -1, onAdd, onCancel }) => {
 
     return (
         <form onSubmit={handleAdd}>
+            <Heading> {id === 'add' ? 'Add' : 'Update'} Project </Heading>
             <Stack>
-                <FormControl>
+                <FormControl isRequired= {1} isInvalid={errors?.name}>
                     <FormLabel>Project Name</FormLabel>
                     <Input 
                         type='text' 
                         name='name' 
                         value={formData.name} 
                         onChange={handleChange}/>
+                        <FormErrorMessage>{errors?.name}</FormErrorMessage>
                 </FormControl> 
-                <FormControl>
+                <FormControl isRequired= {1} isInvalid={errors?.description}>
                     <FormLabel>Project Description</FormLabel>
                     <Input 
                         type='text' 
                         name='description' 
                         value={formData.description} 
                         onChange={handleChange}/>
+                        <FormErrorMessage>{errors?.description}</FormErrorMessage>
                 </FormControl> 
-                <FormControl>
+                <FormControl isRequired= {1} isInvalid={errors.alias}>
                     <FormLabel>Project Alias</FormLabel>
                     <Input 
                         type='text' 
                         name='alias' 
                         value={formData.alias} 
                         onChange={handleChange}/>
+                        <FormErrorMessage>{errors?.alias}</FormErrorMessage>
                 </FormControl> 
                 <HStack>
                     <Spacer />
@@ -77,7 +94,7 @@ const ProjectsForm = ({ id= -1, onAdd, onCancel }) => {
                             Cancel
                         </Button>
                         <Button colorScheme = 'green' type='submit'> 
-                            {id === -1 ? `Add` : `Update`} Project 
+                            {id === 'add' ? `Add` : `Update`} Project 
                         </Button>                        
                     </ButtonGroup>
                 </HStack>               
@@ -87,7 +104,7 @@ const ProjectsForm = ({ id= -1, onAdd, onCancel }) => {
 }
 
 ProjectsForm.propTypes = {
-    id: PropTypes, 
+    id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]), 
     onAdd: PropTypes.func, 
     onExit: PropTypes.func};
 export default ProjectsForm;

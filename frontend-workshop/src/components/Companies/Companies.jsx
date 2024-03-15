@@ -34,5 +34,5 @@ const CompaniesTable = ({ data = []}) => {
     );
 }
 
-CompaniesTable.propTypes = {data: PropTypes.array, onDelete: PropTypes.func, onEdit: PropTypes.func}
+CompaniesTable.propTypes = {data: PropTypes.array, onDelete: PropTypes.func, onEdit: PropTypes.func, onCancel: PropTypes.func}
 export default CompaniesTable;

@@ -1,10 +1,12 @@
 import initialResources from "./resources.json";
 import initialProjects from "./projects.json";
 import initialCompanies from "./companies.json";
+import initialRequests from "./requests.json";
 
 const storedResources = localStorage.getItem("resources");
 const storedProjects = localStorage.getItem("projects");
 const storedCompanies = localStorage.getItem("companies");
+const storedRequests = localStorage.getItem("requests");
 
 let resources = storedResources
   ? JSON.parse(storedResources)
@@ -15,14 +17,27 @@ let projects = storedProjects
 let companies = storedCompanies
   ? JSON.parse(storedCompanies)
   : [...initialCompanies];
+let requests = storedRequests
+  ? JSON.parse(storedRequests)
+  : [...initialRequests];
 
 const updateLocalStorage = () => {
   localStorage.setItem("resources", JSON.stringify(resources));
   localStorage.setItem("projects", JSON.stringify(projects));
   localStorage.setItem("companies", JSON.stringify(companies));
+  localStorage.setItem("requests", JSON.stringify(requests));
 };
 
 const findById = (array, id) => array.find((item) => item.id === id);
+const findByName = (array, value, keys = ["name"]) => {
+  const data = array.filter((item) =>
+    keys.some((key) =>
+      item?.[key]?.toUpperCase().includes(value?.toUpperCase())
+    )
+  );
+  if (data?.length > 0) return data;
+  return [];
+};
 
 const mockApi = (method, endpoint, data = null) => {
   let requestText = `Request Made: %c${method} - ${endpoint} ${
@@ -63,12 +78,27 @@ const mockApi = (method, endpoint, data = null) => {
               return result;
             }
           } else {
-            result.status = true;
-            result.data = validData;
-            return result;
+            if (data?.keyword?.length > 0) {
+              const matches = findByName(validData, data?.keyword, [
+                "firstName",
+                "middleName",
+                "lastName",
+              ]);
+              if (Array.isArray(matches)) {
+                result.status = true;
+                result.data = matches;
+                return result;
+              } else {
+                result.status = false;
+                return result;
+              }
+            } else {
+              result.status = true;
+              result.data = validData;
+              return result;
+            }
           }
         }
-
         case "projects": {
           const validData = projects.filter((item) => !item.isDeleted);
           if (getEndpoint.length === 3) {
@@ -83,28 +113,83 @@ const mockApi = (method, endpoint, data = null) => {
               return result;
             }
           } else {
-            result.status = true;
-            result.data = validData;
-            return result;
+            if (data?.keyword?.length > 0) {
+              const matches = findByName(validData, data?.keyword);
+              if (Array.isArray(matches)) {
+                result.status = true;
+                result.data = matches;
+                return result;
+              } else {
+                result.status = false;
+                return result;
+              }
+            } else {
+              result.status = true;
+              result.data = validData;
+              return result;
+            }
           }
         }
         case "companies": {
           const validData = companies.filter((item) => !item.isDeleted);
           if (getEndpoint.length === 3) {
-            const developerId = parseInt(getEndpoint[2], 10);
-            const developer = findById(validData, developerId);
-            if (developer) {
+            const companyId = parseInt(getEndpoint[2], 10);
+            const company = findById(validData, companyId);
+            if (company) {
               result.status = true;
-              result.data = developer;
+              result.data = company;
               return result;
             } else {
               result.status = false;
               return result;
             }
           } else {
-            result.status = true;
-            result.data = validData;
-            return result;
+            if (data?.keyword?.length > 0) {
+              const matches = findByName(validData, data?.keyword);
+              if (Array.isArray(matches)) {
+                result.status = true;
+                result.data = matches;
+                return result;
+              } else {
+                result.status = false;
+                return result;
+              }
+            } else {
+              result.status = true;
+              result.data = validData;
+              return result;
+            }
+          }
+        }
+        case "requests": {
+          const validData = requests.filter((item) => !item.isDeleted);
+          if (getEndpoint.length === 3) {
+            const requestId = parseInt(getEndpoint[2], 10);
+            const request = findById(validData, requestId);
+            if (request) {
+              result.status = true;
+              result.data = request;
+              return result;
+            } else {
+              result.status = false;
+              return result;
+            }
+          } else {
+            if (data?.keyword?.length > 0) {
+              const matches = findByName(validData, data?.keyword, ["subject"]);
+              if (Array.isArray(matches)) {
+                result.status = true;
+                result.data = matches;
+                return result;
+              } else {
+                result.status = false;
+                return result;
+              }
+            } else {
+              result.status = true;
+              result.data = validData;
+              return result;
+            }
           }
         }
         default:
@@ -125,6 +210,10 @@ const mockApi = (method, endpoint, data = null) => {
           localStorage.setItem(
             "companies",
             JSON.stringify([...initialCompanies])
+          );
+          localStorage.setItem(
+            "requests",
+            JSON.stringify([...initialRequests])
           );
           return;
         }
@@ -147,6 +236,14 @@ const mockApi = (method, endpoint, data = null) => {
         case "/companies": {
           const newDeveloper = { ...data, id: companies.length + 1 };
           companies.push(newDeveloper);
+          result.status = true;
+          result.data = newDeveloper;
+          updateLocalStorage();
+          return result;
+        }
+        case "/requests": {
+          const newDeveloper = { ...data, id: requests.length + 1 };
+          requests.push(newDeveloper);
           result.status = true;
           result.data = newDeveloper;
           updateLocalStorage();
@@ -190,22 +287,34 @@ const mockApi = (method, endpoint, data = null) => {
           updateLocalStorage();
           return result;
         }
-
         case "companies": {
           const validData = companies.filter((item) => !item.isDeleted);
-          const developerId = parseInt(putEndpoint[2], 10);
-          const developerToUpdate = findById(validData, developerId);
-          if (developerToUpdate) {
-            Object.assign(developerToUpdate, data);
+          const companyId = parseInt(putEndpoint[2], 10);
+          const companyToUpdate = findById(validData, companyId);
+          if (companyToUpdate) {
+            Object.assign(companyToUpdate, data);
             result.status = true;
-            result.data = developerToUpdate;
+            result.data = companyToUpdate;
             updateLocalStorage();
             return result;
           }
           updateLocalStorage();
           return result;
         }
-
+        case "requests": {
+          const validData = requests.filter((item) => !item.isDeleted);
+          const requestId = parseInt(putEndpoint[2], 10);
+          const requestToUpdate = findById(validData, requestId);
+          if (requestToUpdate) {
+            Object.assign(requestToUpdate, data);
+            result.status = true;
+            result.data = requestToUpdate;
+            updateLocalStorage();
+            return result;
+          }
+          updateLocalStorage();
+          return result;
+        }
         default:
           updateLocalStorage();
           return result;
@@ -230,7 +339,6 @@ const mockApi = (method, endpoint, data = null) => {
           updateLocalStorage();
           return result;
         }
-
         case "projects": {
           const projectId = parseInt(deleteEndpoint[2], 10);
           const index = projects.findIndex((item) => item.id === projectId);
@@ -245,22 +353,34 @@ const mockApi = (method, endpoint, data = null) => {
           updateLocalStorage();
           return result;
         }
-
         case "companies": {
-          const developerId = parseInt(deleteEndpoint[2], 10);
-          const index = companies.findIndex((item) => item.id === developerId);
+          const companyId = parseInt(deleteEndpoint[2], 10);
+          const index = companies.findIndex((item) => item.id === companyId);
           if (index !== -1) {
             companies[index].isDeleted = true;
-            const deletedDeveloper = companies[index];
+            const deletedCompany = companies[index];
             result.status = true;
-            result.data = deletedDeveloper;
+            result.data = deletedCompany;
             updateLocalStorage();
             return result;
           }
           updateLocalStorage();
           return result;
         }
-
+        case "requests": {
+          const requestId = parseInt(deleteEndpoint[2], 10);
+          const index = requests.findIndex((item) => item.id === requestId);
+          if (index !== -1) {
+            requests[index].isDeleted = true;
+            const deletedRequest = requests[index];
+            result.status = true;
+            result.data = deletedRequest;
+            updateLocalStorage();
+            return result;
+          }
+          updateLocalStorage();
+          return result;
+        }
         default:
           updateLocalStorage();
           return result;

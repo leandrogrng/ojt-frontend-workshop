@@ -7,7 +7,6 @@ const Form = () => {
     const {id, dispatch, formData, handleAddCompany, handleCancel, isEditing} = useCompany();
     const [errors, setErrors] = useState({});
 
-
     const handleAdd = (e) => {
         e.preventDefault(); 
         const validator = validateCompany(formData);
@@ -79,7 +78,7 @@ const Form = () => {
                 </Stack>
             </CardBody>
             <CardFooter>
-                        <HStack>
+                    <HStack>
                             {!isEditing && <>
                                 <Button type = 'button' 
                                         onClick={() => dispatch ({type: 'SET_EDIT', isEditing: true})}>
@@ -104,8 +103,7 @@ const Form = () => {
         </Card>              
         </form>
     )
-    }
+}
 
 Form.propTypes = {}
-
 export default Form;

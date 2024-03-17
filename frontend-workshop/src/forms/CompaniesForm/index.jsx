@@ -13,36 +13,8 @@ const initialData = {
 };
 
 const CompaniesForm = ({id = -1, onAdd, onExit}) => {
-    // const [errors, setErrors] = useState({});
     const [formData, setFormData] = useState(initialData);
     const fetched = useRef(false);
-
-    // const handleAdd = (e) => {
-    //     e.preventDefault();
-    //     const validator = validateCompany(formData);
-    //     const {isValid = false, errors = {}} = validator;
-
-    //     if(isValid) {
-    //         onAdd(formData);
-    //         setErrors({});    
-    //         //setFormData(initialData);
-    //         onExit();
-    //     } else {
-    //         setErrors(errors);
-    //     }
-    // };
-
-    // const handleChange = (e) => {
-    //     const{name, value} = e.target;
-    //     setFormData((prevData) => {
-    //         return {...prevData, [name]: value}
-    //     });
-    // }
-
-    // const handleCancel = () => {
-    //     setFormData(initialData);
-    //     onExit();
-    // }
 
     useEffect (() => {
         if (id === -1 || fetched.current) return;

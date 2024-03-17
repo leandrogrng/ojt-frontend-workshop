@@ -8,17 +8,13 @@ const initialData = {
     isEditing: false,
     data: {
         name: '',
-        contactPerson: '',
-        email: '',
-        address: '',
-        contactNumber: '',
+        description: '',
+        alias: ''
     },
     formData: {
         name: '',
-        contactPerson: '',
-        email: '',
-        address: '',
-        contactNumber: '',
+        description: '',
+        alias: ''
     },
 };
 const reducer = (state, action) => {
@@ -34,27 +30,26 @@ const reducer = (state, action) => {
 
         }
         case "ON_INPUTCHANGE": 
-            return {...state, formData:{...state.formData, [payload.name]: payload.value}};
-        
+            return {...state, formData:{...state.formData, [payload.name]: payload.value}};     
         default:
             return state;
     }
 }
 
-export const CompanyContext = createContext('default');
+export const ProjectsContext = createContext('default');
 
-const CompanyProvider = ({id = 'add', children}) => {
+const ProjectProvider = ({id = 'add', children}) => {
     const navigate = useNavigate();
     const [state, dispatch] = useReducer(reducer, initialData);
     const fetched = useRef(-1);
 
-    const handleAddCompany = (data) => {
+    const handleAddProject = (data) => {
         let method = "POST";
-        let endpoint = "/companies";
+        let endpoint = "/projects";
 
         if (data?.id > -1) {
             method = "PUT";
-            endpoint = `/companies/${data?.id}`;
+            endpoint = `/projects/${data?.id}`;
         }
 
         const requestData = mockApi(method, endpoint, data);
@@ -62,32 +57,32 @@ const CompanyProvider = ({id = 'add', children}) => {
 
         if (status && !(data?.id > -1)) {
             Swal.fire({
-                title: "Company Added",
+                title: "Project Added",
                 confirmButtonText: "Ok",
                 icon: "success",
             });
-            navigate(`/companies/${newData?.id}`);
+            navigate(`/projects/${newData?.id}`);
         } else {
             Swal.fire({
-                title: "Company Updated",
+                title: "Project Updated",
                 confirmButtonText: "Ok",
                 icon: "success",
             });
             dispatch({type: 'FETCHED', data: newData})
-            navigate(`/companies/${data?.id};`);
+            navigate(`/projects/${data?.id};`);
         }
-        navigate(`/companies`);
+        navigate(`/projects`);
         dispatch({type: 'SET_EDIT', isEditing: false});
     };
 
     const handleDelete = () => {
-        mockApi('DELETE', `/companies/${id}`);
-        navigate('/companies');
+        mockApi('DELETE', `/projects/${id}`);
+        navigate('/projects');
     };
 
     const handleCancel = () => {
         if (id === 'add') {
-            navigate('/companies')
+            navigate('/projects')
             
         }
         dispatch({type: 'SET_EDIT', isEditing: false});
@@ -100,7 +95,7 @@ const CompanyProvider = ({id = 'add', children}) => {
             dispatch({type: 'RESET_DATA'})
         }  
         if (fetched.current === id) return;
-        const requestData = mockApi("GET", `/companies/${id}`);
+        const requestData = mockApi("GET", `/projects/${id}`);
         const {status = false, data = {}} = requestData;
         if(status) {
             fetched.current = true;
@@ -109,23 +104,23 @@ const CompanyProvider = ({id = 'add', children}) => {
     }, [id])
 
     return (
-        <CompanyContext.Provider
+        <ProjectsContext.Provider
                                 value = {{
                                     id, 
                                     ...state,
                                     dispatch,
-                                    handleAddCompany, 
+                                    handleAddProject, 
                                     handleDelete, 
                                     handleCancel, 
                                     }}>
             {children}
-        </CompanyContext.Provider>
+        </ProjectsContext.Provider>
     )
 }
 
-CompanyProvider.propTypes = {
+ProjectProvider.propTypes = {
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     children: PropTypes.any
 }
 
-export default CompanyProvider;
+export default ProjectProvider;

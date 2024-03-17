@@ -2,9 +2,25 @@ import initialResources from "./resources.json";
 import initialProjects from "./projects.json";
 import initialCompanies from "./companies.json";
 
-let resources = [...initialResources];
-let projects = [...initialProjects];
-let companies = [...initialCompanies];
+const storedResources = localStorage.getItem("resources");
+const storedProjects = localStorage.getItem("projects");
+const storedCompanies = localStorage.getItem("companies");
+
+let resources = storedResources
+  ? JSON.parse(storedResources)
+  : [...initialResources];
+let projects = storedProjects
+  ? JSON.parse(storedProjects)
+  : [...initialProjects];
+let companies = storedCompanies
+  ? JSON.parse(storedCompanies)
+  : [...initialCompanies];
+
+const updateLocalStorage = () => {
+  localStorage.setItem("resources", JSON.stringify(resources));
+  localStorage.setItem("projects", JSON.stringify(projects));
+  localStorage.setItem("companies", JSON.stringify(companies));
+};
 
 const findById = (array, id) => array.find((item) => item.id === id);
 
@@ -97,11 +113,27 @@ const mockApi = (method, endpoint, data = null) => {
     }
     case "POST": {
       switch (endpoint) {
+        case "/reset-data": {
+          localStorage.setItem(
+            "resources",
+            JSON.stringify([...initialResources])
+          );
+          localStorage.setItem(
+            "projects",
+            JSON.stringify([...initialProjects])
+          );
+          localStorage.setItem(
+            "companies",
+            JSON.stringify([...initialCompanies])
+          );
+          return;
+        }
         case "/resources": {
           const newResource = { ...data, id: resources.length + 1 };
           resources.push(newResource);
           result.status = true;
           result.data = newResource;
+          updateLocalStorage();
           return result;
         }
         case "/projects": {
@@ -109,6 +141,7 @@ const mockApi = (method, endpoint, data = null) => {
           projects.push(newProject);
           result.status = true;
           result.data = newProject;
+          updateLocalStorage();
           return result;
         }
         case "/companies": {
@@ -116,9 +149,11 @@ const mockApi = (method, endpoint, data = null) => {
           companies.push(newDeveloper);
           result.status = true;
           result.data = newDeveloper;
+          updateLocalStorage();
           return result;
         }
         default:
+          updateLocalStorage();
           return result;
       }
     }
@@ -135,8 +170,10 @@ const mockApi = (method, endpoint, data = null) => {
             Object.assign(resourceToUpdate, data);
             result.status = true;
             result.data = resourceToUpdate;
+            updateLocalStorage();
             return result;
           }
+          updateLocalStorage();
           return result;
         }
         case "projects": {
@@ -147,8 +184,10 @@ const mockApi = (method, endpoint, data = null) => {
             Object.assign(projectToUpdate, data);
             result.status = true;
             result.data = projectToUpdate;
+            updateLocalStorage();
             return result;
           }
+          updateLocalStorage();
           return result;
         }
 
@@ -160,12 +199,15 @@ const mockApi = (method, endpoint, data = null) => {
             Object.assign(developerToUpdate, data);
             result.status = true;
             result.data = developerToUpdate;
+            updateLocalStorage();
             return result;
           }
+          updateLocalStorage();
           return result;
         }
 
         default:
+          updateLocalStorage();
           return result;
       }
     }
@@ -182,8 +224,10 @@ const mockApi = (method, endpoint, data = null) => {
             const deletedResource = resources[index];
             result.status = true;
             result.data = deletedResource;
+            updateLocalStorage();
             return result;
           }
+          updateLocalStorage();
           return result;
         }
 
@@ -195,8 +239,10 @@ const mockApi = (method, endpoint, data = null) => {
             const deletedProject = projects[index];
             result.status = true;
             result.data = deletedProject;
+            updateLocalStorage();
             return result;
           }
+          updateLocalStorage();
           return result;
         }
 
@@ -208,32 +254,22 @@ const mockApi = (method, endpoint, data = null) => {
             const deletedDeveloper = companies[index];
             result.status = true;
             result.data = deletedDeveloper;
+            updateLocalStorage();
             return result;
           }
+          updateLocalStorage();
           return result;
         }
 
         default:
+          updateLocalStorage();
           return result;
       }
     }
     default:
+      updateLocalStorage();
       return result;
   }
 };
 
 export default mockApi;
-
-// console.log("Test mockApi - Get all resources", mockApi("GET", "/resources"));
-// console.log(
-//   "Test mockApi - Get resource with ID 1",
-//   mockApi("GET", "/resources/1")
-// );
-// console.log(
-//   "Test mockApi - Add a new resource",
-//   mockApi("POST", "/resources", { name: "New Resource" })
-// );
-// console.log(
-//   "Test mockApi - Update resource with ID 1",
-//   mockApi("PUT", "/resources/1", { name: "Updated Resource" })
-// );

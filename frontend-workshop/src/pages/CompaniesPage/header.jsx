@@ -3,14 +3,13 @@ import { Link } from "react-router-dom";
 import mockApi from "../../utils/mockApi";
 
 const Header = () => {
-
     const handleCancel = () => {
         mockApi('POST', '/reset-data');
         window.location.reload();
     }
 
     return (
-        <HStack className = "pageHeader">
+        <HStack className = "pageHeader" w='full' maxW='container.md' mx='auto' flexDirection = {{base: 'column', md: 'row'}} alignItems={{base: 'flex-start', md: 'center'}}>
             <Heading textAlign='center'> Companies </Heading>
             <Spacer/>
             <ButtonGroup>

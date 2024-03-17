@@ -7,20 +7,19 @@ import Swal from "sweetalert2";
 const initialData = {
     isEditing: false,
     data: {
-        name: '',
-        contactPerson: '',
-        email: '',
-        address: '',
-        contactNumber: '',
+        firstName: '',
+        middleName: '',
+        lastName: '',
+        type: '',
     },
     formData: {
-        name: '',
-        contactPerson: '',
-        email: '',
-        address: '',
-        contactNumber: '',
+        firstName: '',
+        middleName: '',
+        lastName: '',
+        type: '',
     },
 };
+
 const reducer = (state, action) => {
     const {type, ...payload} = action;
     switch (type) {
@@ -31,30 +30,28 @@ const reducer = (state, action) => {
         }
         case "RESET_DATA": {
             return {...state, formData: state.data};
-
         }
         case "ON_INPUTCHANGE": 
             return {...state, formData:{...state.formData, [payload.name]: payload.value}};
-        
         default:
             return state;
     }
 }
 
-export const CompanyContext = createContext('default');
+export const ResourceContext = createContext('default');
 
-const CompanyProvider = ({id = 'add', children}) => {
+const ResourceProvider = ({id = 'add', children}) => {
     const navigate = useNavigate();
     const [state, dispatch] = useReducer(reducer, initialData);
     const fetched = useRef(-1);
 
-    const handleAddCompany = (data) => {
+    const handleAddResource = (data) => {
         let method = "POST";
-        let endpoint = "/companies";
+        let endpoint = "/resources";
 
         if (data?.id > -1) {
             method = "PUT";
-            endpoint = `/companies/${data?.id}`;
+            endpoint = `/resources/${data?.id}`;
         }
 
         const requestData = mockApi(method, endpoint, data);
@@ -62,32 +59,32 @@ const CompanyProvider = ({id = 'add', children}) => {
 
         if (status && !(data?.id > -1)) {
             Swal.fire({
-                title: "Company Added",
+                title: "Resource Added",
                 confirmButtonText: "Ok",
                 icon: "success",
             });
-            navigate(`/companies/${newData?.id}`);
+            navigate(`/resources/${newData?.id}`);
         } else {
             Swal.fire({
-                title: "Company Updated",
+                title: "Resource Updated",
                 confirmButtonText: "Ok",
                 icon: "success",
             });
             dispatch({type: 'FETCHED', data: newData})
-            navigate(`/companies/${data?.id};`);
+            navigate(`/resources/${data?.id};`);
         }
-        navigate(`/companies`);
+        navigate(`/resources`);
         dispatch({type: 'SET_EDIT', isEditing: false});
     };
 
     const handleDelete = () => {
-        mockApi('DELETE', `/companies/${id}`);
-        navigate('/companies');
+        mockApi('DELETE', `/resources/${id}`);
+        navigate('/resources');
     };
 
     const handleCancel = () => {
         if (id === 'add') {
-            navigate('/companies')
+            navigate('/resources')
             
         }
         dispatch({type: 'SET_EDIT', isEditing: false});
@@ -100,7 +97,7 @@ const CompanyProvider = ({id = 'add', children}) => {
             dispatch({type: 'RESET_DATA'})
         }  
         if (fetched.current === id) return;
-        const requestData = mockApi("GET", `/companies/${id}`);
+        const requestData = mockApi("GET", `/resources/${id}`);
         const {status = false, data = {}} = requestData;
         if(status) {
             fetched.current = true;
@@ -109,23 +106,23 @@ const CompanyProvider = ({id = 'add', children}) => {
     }, [id])
 
     return (
-        <CompanyContext.Provider
+        <ResourceContext.Provider
                                 value = {{
                                     id, 
                                     ...state,
                                     dispatch,
-                                    handleAddCompany, 
+                                    handleAddResource, 
                                     handleDelete, 
                                     handleCancel, 
                                     }}>
             {children}
-        </CompanyContext.Provider>
+        </ResourceContext.Provider>
     )
 }
 
-CompanyProvider.propTypes = {
+ResourceContext.propTypes = {
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     children: PropTypes.any
 }
 
-export default CompanyProvider;
+export default ResourceProvider;

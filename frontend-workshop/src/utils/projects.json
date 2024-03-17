@@ -1,15 +1,18 @@
 [
   {
+    "id": 0,
     "name": "People System Upgrade",
     "description": "Upgrade and enhance the features of the HR system",
     "alias": "peopleUpgrade"
   },
   {
+    "id": 1,
     "name": "Books Integration",
     "description": "Integrate accounting system with external financial tools",
     "alias": "booksIntegration"
   },
   {
+    "id": 2,
     "name": "Warehouse Automation",
     "description": "Implement automation features in the warehouse management system",
     "alias": "warehouseAutomation"

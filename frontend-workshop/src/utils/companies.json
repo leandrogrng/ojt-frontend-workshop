@@ -1,5 +1,6 @@
 [
   {
+    "id": 0,
     "name": "TechByte Innovations",
     "contactPerson": "Michelle Cruz",
     "email": "michelle.cruz@techbyte.ph",
@@ -7,6 +8,7 @@
     "contactNumber": "+63 2 111 2222"
   },
   {
+    "id": 1,
     "name": "GreenLeaf Organics",
     "contactPerson": "John Santos",
     "email": "john.santos@greenleaforganics.com",
@@ -14,6 +16,7 @@
     "contactNumber": "+63 2 333 4444"
   },
   {
+    "id": 2,
     "name": "MetroStyle Apparel",
     "contactPerson": "Karen Lim",
     "email": "karen.lim@metrostyle.ph",
@@ -21,6 +24,7 @@
     "contactNumber": "+63 2 555 6666"
   },
   {
+    "id": 3,
     "name": "AquaTech Solutions",
     "contactPerson": "Carlos Rivera",
     "email": "carlos.rivera@aquatech.ph",
@@ -28,6 +32,7 @@
     "contactNumber": "+63 2 777 8888"
   },
   {
+    "id": 4,
     "name": "BioHarvest Farms",
     "contactPerson": "Elena Gomez",
     "email": "elena.gomez@bioharvestfarms.com",

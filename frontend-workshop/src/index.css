@@ -3,9 +3,9 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #04041c;
+  color-scheme: dark;
+  color: rgba(20, 20, 20, 0.87);
+  background-color: #ffffff;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -13,82 +13,186 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* DIV CONTAINERS */
-#top, #lowerleft, #lowerright {
-  background-color : rgb(40, 38, 79);
-  border-radius: 10px;
-}
-
-#lowerSection {
-  display: flex;
-  margin-top: 2%;
-}
-
-#lowerleft {
-  max-width: 100%;
-  flex: 1;
-}
-
-#lowerright {
-  margin-left: 2%;
-  max-width: 100%;
-  flex: 1;
-}
-
-
-
-/* END OF DIV CONTAINERS */
 
 /* TABLES CSS */ 
+
 .dataTable {
   text-align: left;
   width: 97%;
-  
+  padding: 2rem;
 }
+
+
 
 /* END OF TABLE CSS */
 
-
-#resourceContainer {
-  width: 100%;
-}
-
-#title {
-  text-align: center;
-}
-
 h1 {
-  color: rgb(248, 133, 17);
+  color: rgb(255, 255, 255);
   text-align: left;
-  text-indent: 20px;
+  font-size: 35px;
+}
+
+/* -------------------- APP.JSX -----------------------------*/
+
+/* ------ OUTER BOX ----------- */
+#sidebar {
+  width: 250px;
+  height: 100%;
+  flex-shrink: 0;
+  background-color:#f6f6f6 ;
+  border-radius: 12px;
+  box-shadow: 1px 4px 10px rgba(0, 0.1, 0, 0.1);
+  margin-right: 10;
+}
+
+#imageContainer {
+  width : 200px;
+  height : 100px;
+  background-image: url(./assets/twice.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-left: 60px;
+  margin-top: 30px;
+}
+
+#outlet {
+  flex: 1;
+  padding-left: 30px;
+  padding-left: 15rem;
+  padding-right: 15rem;
+}
+
+/* --------- TEXT ---------- */
+.menu, .menuActive {
+  font-size: 22px;
+  color: rgb(22, 21, 21);
+  text-align: left;
+  text-decoration: none;
+  text-indent: 10%;
+  padding: 10px;
+}
+
+.menu:hover {
+  color:rgb(244,28,28);
+  background-color: rgb(222, 222, 222);
+  box-shadow: 0px 1px 5px rgba(114, 114, 114, 0.5);
+}
+
+.menuActive {
+  background-color: rgb(244,28,28);
+  color: white;
+  font-weight: bold;
+  box-shadow: 0px 2px 9px rgba(114, 114, 114, 0.5);
+}
+
+/* ------------------------ HOME.JSX -----------------------------*/
+
+#home {
+  text-align : center;
+  font-size: 50px;
+  font-weight: 900;
+  color:#3c3c3c;
+}
+
+
+/* ---------------------------- PROJECTS.JSX ---------------------------------*/
+
+/* ---- LAYOUT COMPONENTS ---- */
+
+#projectContainer {
+  background-color: rgb(249, 249, 249);
+  height: auto;
+  width: auto;
+  border-radius: 10px;
+  flex: 1;
+  box-shadow: 0px 4px 10px rgba(66, 66, 66, 0.1);
+  padding: 3;
+}
+
+#projectContainer:hover {
+  background-color: rgb(234, 236, 242);
+}
+
+#projectBtn {
+  display: block;
+  text-align: right;
+  margin: 15px;
+}
+
+
+/* ------- ELEMENTS -------- */
+
+/* --- COMMON STYLES --- */
+
+#projectName, #projectDescription {
+  margin: 2px;
+  margin-left: 15px;
+  padding: 8px;
+  text-align: left;
+}
+
+
+/* ---- SPECIFIC ELEMENT ---*/
+
+#projectName {
+  margin-top: 10px;
+  font-size: 25px;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+}
+
+#projectDescription {
+  padding-top: 0px;
+  margin-bottom: 0px;
+  color: rgb(78, 78, 78);
+  font-size: 15px;
+}
+
+/* ---------------- TABLES ----------------- */
+.tableHeader {
   font-size: 30px;
+  background-color:#fc0339;
+  color:#f6f6f6;
 }
 
-.projectName {
+.row:hover {
+  background-color: rgb(240, 240, 240);
+  font-weight: 500;
+  position: sticky;
+}
+
+
+/* ===================== PAGE HEADERS ====================== */
+
+.pageHeader {
+  margin-bottom: 20px;
+}
+
+/* -------------------- ERROR_PAGE/INDEX.JSX -----------------------------*/
+
+#error {
+  margin-top: 10%;
+  margin-bottom: 0;
+  color: black;
+  font-size: 60px;
+  font-weight: 900;
   text-align: center;
-  color:rgb(255, 255, 255);
-  line-height: 5px;
 }
 
-.projectDescription {
+#errorText {
   margin-top: 0%;
-  line-height: 1;
-  color: rgb(171, 171, 171);
+  font-size: 20px;
+  text-align: center;
 }
 
-#divider {
-  margin-bottom: 10%;
-}
+/* ----------------------- CONTAINERS PER PAGE ------------------------*/
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.containers {
+  height: auto;
+  width: auto;
+  border-radius: 10px;
+  flex: 1;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 4px;
+  background-color: rgb(255, 255, 255);
 }

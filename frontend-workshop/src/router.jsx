@@ -22,10 +22,8 @@ const routes = [
             { path: '/companies/:id', element: <ViewCompanies/>},
             { path: '/projects', element: <ProjectPage/>},
             { path: '/projects/:id', element: <ViewProjects/>}
-
         ]
-    },
-    
+    },  
     {
         path: '*',
         element: <Navigate to='/404' replace/>

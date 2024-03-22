@@ -75,15 +75,31 @@ const ProjectProvider = ({id = 'add', children}) => {
         dispatch({type: 'SET_EDIT', isEditing: false});
     };
 
-    const handleDelete = () => {
-        mockApi('DELETE', `/projects/${id}`);
-        navigate('/projects');
+    const handleDelete = (data) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "green",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success"
+            });
+            mockApi('DELETE', `/projects/${id}`);
+            navigate('/projects');
+            }
+        }); 
     };
 
     const handleCancel = () => {
         if (id === 'add') {
-            navigate('/projects')
-            
+            navigate('/projects')           
         }
         dispatch({type: 'SET_EDIT', isEditing: false});
         dispatch({type: 'RESET_DATA'})

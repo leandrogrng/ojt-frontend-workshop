@@ -6,7 +6,10 @@ const Footer = () => {
 
     return (
         <Box>
-            <Button colorScheme='red' onClick = {handleDelete}>
+            <Button 
+                    data-test-id = 'project-delete-btn'
+                    colorScheme='red' 
+                    onClick = {handleDelete}>
                 Delete Project
             </Button>
         </Box>

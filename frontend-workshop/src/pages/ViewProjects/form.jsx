@@ -25,11 +25,11 @@ const Form = () => {
     }
 
     return (
-        <form onSubmit={handleAdd}>
+        <form onSubmit={handleAdd} data-test-id='project-form'>
             <Card>
                 <CardBody>
 
-            <Heading> {id === 'add' ? 'Add' : 'Update'} Project </Heading>
+            <Heading data-test-id = 'project-form-header'> {id === 'add' ? 'Add' : 'Update'} Project </Heading>
                 <Stack>
                     <FormControl isRequired= {1} isInvalid={errors?.name} isReadOnly = {!isEditing}>
                         <FormLabel>Project Name</FormLabel>
@@ -63,7 +63,9 @@ const Form = () => {
             <CardFooter>
                 <HStack>
                         {!isEditing && <>
-                                <Button type = 'button' 
+                                <Button 
+                                        data-test-id = 'project-update-btn'
+                                        type = 'button' 
                                         onClick={() => dispatch ({type: 'SET_EDIT', isEditing: true})}>
                                     Update Project
                                 </Button>
@@ -72,11 +74,16 @@ const Form = () => {
                             <Spacer />
                             <ButtonGroup>
                                 {isEditing && <>
-                                    <Button type = 'button' 
+                                    <Button 
+                                            data-test-id = 'project-form-cancel'
+                                            type = 'button' 
                                             onClick={handleCancel}>
                                         Cancel
                                     </Button>
-                                    <Button colorScheme = 'green' type='submit'> 
+                                    <Button 
+                                            data-test-id = 'project-form-submit'
+                                            colorScheme = 'green' 
+                                            type='submit'> 
                                         {id === 'add' ? `Add` : `Update`} Project
                                     </Button>                        
                                 </>}

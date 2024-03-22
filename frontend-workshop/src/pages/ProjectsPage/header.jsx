@@ -13,8 +13,16 @@ const Header = () => {
             <Heading textAlign='center'> Projects </Heading>
             <Spacer/>
             <ButtonGroup>
-                    <Button colorScheme='orange' borderWidth='1px' onClick={handleCancel}> Reset </Button>
-                    <Button as={Link} to='/projects/add' colorScheme = "green"> 
+                    <Button 
+                            data-test-id='project-reset-btn'
+                            colorScheme='orange' 
+                            borderWidth='1px' 
+                            onClick={handleCancel}> Reset </Button>
+                    <Button 
+                            data-test-id='project-add-btn'
+                            as={Link} 
+                            to='/projects/add' 
+                            colorScheme = "green"> 
                         Add project 
                     </Button>                    
             </ButtonGroup>

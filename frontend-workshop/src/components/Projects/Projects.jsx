@@ -1,7 +1,6 @@
-import {Center, SimpleGrid, Box, Heading, Text, Button, ButtonGroup, LinkOverlay, LinkBox} from '@chakra-ui/react'
+import {SimpleGrid, Box, Heading, Text, Button, ButtonGroup, LinkOverlay, LinkBox} from '@chakra-ui/react'
 import '../../index.css'
 import { PropTypes } from 'prop-types';
-import { Link } from 'react-router-dom';
 
 function ProjectContent({ data = [] }) {
   return (

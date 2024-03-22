@@ -8,6 +8,8 @@ import ProjectPage from './pages/ProjectsPage';
 import ViewResource from './pages/ViewResource';
 import ViewCompanies from './pages/ViewCompanies';
 import ViewProjects from './pages/ViewProjects';
+import ViewRequests from './pages/ViewRequests/';
+import RequestPage from './pages/RequestPage';
 
 const routes = [
     {
@@ -21,7 +23,10 @@ const routes = [
             { path: '/companies', element: <CompaniesPage/>},
             { path: '/companies/:id', element: <ViewCompanies/>},
             { path: '/projects', element: <ProjectPage/>},
-            { path: '/projects/:id', element: <ViewProjects/>}
+            { path: '/projects/:id', element: <ViewProjects/>},
+            { path: '/requests', element: <RequestPage/>},
+            { path: '/requests/:id', element: <ViewRequests/>}
+            
         ]
     },  
     {

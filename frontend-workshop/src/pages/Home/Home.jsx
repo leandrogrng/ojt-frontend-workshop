@@ -11,7 +11,10 @@ function Home () {
   return (
     <>
       <h1 id='home'> HELLO WORLD! </h1>
-      <Button colorScheme = 'orange' onClick = {handleCancel}>
+      <Button
+        data-test-id='btn-reset-home' 
+        colorScheme = 'orange' 
+        onClick = {handleCancel}>
         Reset
       </Button>
     </>

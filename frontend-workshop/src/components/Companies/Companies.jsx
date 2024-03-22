@@ -2,11 +2,10 @@ import { Table, Thead, Tbody, Tr, Th, Td, Box, Button, ButtonGroup, LinkBox, Lin
 import { PropTypes } from 'prop-types';
 
 const CompaniesTable = ({ data = []}) => {
-    const [padding] = useToken('sizes', [4]);
+    const [padding] = useToken('sizes', [1]);
 
     return (
-        <Card w='full' maxW={{ base: `calc(100% - ${padding})`, md: 'container.md' }} mx='auto'>
-            <CardBody>
+        <Card maxW={{ base: `calc(100% - ${padding})`, md: 'container.md' }} mx='auto'>
                 <TableContainer>
                 <Table className = 'dataTable'>
                     <Thead>
@@ -36,7 +35,6 @@ const CompaniesTable = ({ data = []}) => {
                     </Tbody>
                 </Table>  
                 </TableContainer>
-            </CardBody>
         </Card>
     );
 }

@@ -25,11 +25,11 @@ const Form = () => {
     }
 
     return (
-        <form onSubmit={handleAdd}>
+        <form onSubmit={handleAdd} data-test-id ='company-form'>
             <Card>
                 <CardBody>
                     <Stack>
-                    <Heading> {id === 'add' ? 'Add' : 'Update'} Company </Heading>
+                    <Heading data-test-id = 'company-form-header'> {id === 'add' ? 'Add' : 'Update'} Company </Heading>
                         <FormControl isInvalid={errors.name} isRequired={1} isReadOnly = {!isEditing}>
                             <FormLabel>Name</FormLabel>
                             <Input 
@@ -80,7 +80,9 @@ const Form = () => {
             <CardFooter>
                     <HStack>
                             {!isEditing && <>
-                                <Button type = 'button' 
+                                <Button 
+                                        data-test-id = 'company-update-btn'
+                                        type = 'button' 
                                         onClick={() => dispatch ({type: 'SET_EDIT', isEditing: true})}>
                                     Update Company
                                 </Button>
@@ -89,11 +91,16 @@ const Form = () => {
                             <Spacer />
                             <ButtonGroup>
                                 {isEditing && <>
-                                    <Button type = 'button' 
+                                    <Button 
+                                            data-test-id = 'company-form-cancel'
+                                            type = 'button' 
                                             onClick={handleCancel}>
                                         Cancel
                                     </Button>
-                                    <Button colorScheme = 'green' type='submit'> 
+                                    <Button 
+                                        data-test-id = 'company-form-submit'
+                                        colorScheme = 'green' 
+                                        type='submit'> 
                                         {id === 'add' ? `Add` : `Update`} Company
                                     </Button>                        
                                 </>}

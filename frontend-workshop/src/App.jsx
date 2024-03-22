@@ -21,7 +21,7 @@ function App() {
             <Link to="/companies" 
                   className={pathname === '/companies' ? 'menuActive' : 'menu'}> Companies </Link>
             <Link to="/requests" 
-                  className={pathname === '/404' ? 'menuActive' : 'menu'}>Requests</Link>
+                  className={pathname === '/requests' ? 'menuActive' : 'menu'}>Requests</Link>
           </Stack>
         </Box>
         <Box id='outlet'>

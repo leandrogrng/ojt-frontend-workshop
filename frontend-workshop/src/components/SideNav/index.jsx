@@ -21,5 +21,4 @@ const SideNav = () => {
         </Container>
     );
 };
-
 export default SideNav;

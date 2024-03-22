@@ -4,7 +4,8 @@ const validProjectName = (data) => {
 }
 
 const validProjectDescription = (data) => {
-    return /\s+/.test(data?.description);
+    const regexPDescription = /^(?!\s\s).*$/
+    return regexPDescription.test(data?.description);
 }
 
 const validAlias = (data) => {

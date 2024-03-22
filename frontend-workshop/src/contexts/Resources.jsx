@@ -3,6 +3,8 @@ import { PropTypes } from 'prop-types';
 import mockApi from "../utils/mockApi";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import SuccessAlert from "../assets/alerts/success";
+import DeleteAlert from "../assets/alerts/delete";
 
 const initialData = {
     isEditing: false,
@@ -58,18 +60,10 @@ const ResourceProvider = ({id = 'add', children}) => {
         const { status = false, data: newData = {} } = requestData;
 
         if (status && !(data?.id > -1)) {
-            Swal.fire({
-                title: "Resource Added",
-                confirmButtonText: "Ok",
-                icon: "success",
-            });
+            SuccessAlert('Resource', 'POST');
             navigate(`/resources/${newData?.id}`);
         } else {
-            Swal.fire({
-                title: "Resource Updated",
-                confirmButtonText: "Ok",
-                icon: "success",
-            });
+            SuccessAlert('Resource', 'PUT')
             dispatch({type: 'FETCHED', data: newData})
             navigate(`/resources/${data?.id};`);
         }
@@ -77,9 +71,27 @@ const ResourceProvider = ({id = 'add', children}) => {
         dispatch({type: 'SET_EDIT', isEditing: false});
     };
 
-    const handleDelete = () => {
-        mockApi('DELETE', `/resources/${id}`);
-        navigate('/resources');
+    const handleDelete = (data) => {
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "green",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success"
+            });
+            mockApi('DELETE', `/resources/${id}`);
+            navigate('/resources');
+            }
+        });
     };
 
     const handleCancel = () => {

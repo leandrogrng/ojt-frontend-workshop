@@ -9,7 +9,7 @@ const ViewResource = () => {
     return (
         <ResourceProvider id = {id}>
             <Box w= 'container.md' mx= 'auto' bgColor='white' padding={6}>
-                <Form/>
+                <Form />
                 {id !== 'add' ? <Footer/> : ''}
             </Box>
         </ResourceProvider>

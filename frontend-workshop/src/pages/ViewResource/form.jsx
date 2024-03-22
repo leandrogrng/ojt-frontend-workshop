@@ -25,10 +25,10 @@ const Form = () => {
     }
 
     return (
-        <form onSubmit={handleAdd}>
+        <form onSubmit={handleAdd} data-test-id ='resource-form'>
             <Card>
                 <CardBody>
-            <Heading> {id === 'add' ? 'Add' : 'Update'} Resource </Heading>
+            <Heading data-test-id = 'resource-form-header'> {id === 'add' ? 'Add' : 'Update'} Resource </Heading>
             <Stack>
                 <FormControl isInvalid={errors?.firstName} isRequired={1} isReadOnly = {!isEditing} >
                     <FormLabel>First Name</FormLabel>
@@ -71,7 +71,9 @@ const Form = () => {
             <CardFooter>
                 <HStack>
                     {!isEditing && <>
-                        <Button type = 'button' 
+                        <Button   
+                                data-test-id='resource-update-btn'
+                                type = 'button' 
                                 onClick={() => dispatch ({type: 'SET_EDIT', isEditing: true})}>
                             Update Resource
                         </Button>
@@ -80,11 +82,12 @@ const Form = () => {
                     <Spacer />
                     <ButtonGroup>
                         {isEditing && <>
-                            <Button type = 'button' 
+                            <Button data-test-id='resource-form-cancel'
+                                    type = 'button' 
                                     onClick={handleCancel}>
                                 Cancel
                             </Button>
-                            <Button colorScheme = 'green' type='submit'> 
+                            <Button data-test-id = 'resource-form-submit' colorScheme = 'green' type='submit'> 
                                 {id === 'add' ? `Add` : `Update`} Resource
                             </Button>                        
                         </>}

@@ -6,7 +6,10 @@ const Footer = () => {
 
     return (
         <Box>
-            <Button colorScheme='red' onClick = {handleDelete}>
+            <Button 
+                    data-test-id='resource-delete-btn'
+                    colorScheme='red' 
+                    onClick = {handleDelete}>
                 Delete Resource
             </Button>
         </Box>

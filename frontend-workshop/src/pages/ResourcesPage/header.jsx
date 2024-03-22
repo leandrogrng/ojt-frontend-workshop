@@ -13,8 +13,17 @@ const Header = () => {
             <Heading textAlign='center'> Resources </Heading>
             <Spacer/>
             <ButtonGroup>
-                    <Button colorScheme='orange' borderWidth='1px' onClick={handleCancel}> Reset </Button>
-                    <Button as={Link} to='/resources/add' colorScheme = "green"> 
+                    <Button 
+                        data-test-id='reset-resource-btn'
+                        colorScheme='orange' 
+                        borderWidth='1px' 
+                        onClick={handleCancel}
+                        > Reset </Button>
+                    <Button 
+                        data-test-id='add-resource-btn'
+                        as={Link} 
+                        to='/resources/add' 
+                        colorScheme = "green"> 
                         Add resource 
                     </Button>                    
             </ButtonGroup>
